@@ -1,5 +1,7 @@
+import { Timetable } from './Timetable'
+
 function App() {
-  return <>app</>
+  return <Timetable />
 }
 
 export default App
