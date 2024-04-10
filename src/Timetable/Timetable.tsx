@@ -12,14 +12,13 @@ export const Timetable = () => {
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
       />
-      {startDate && (
-        <Table startDateTime={DateTime.fromFormat(startDate, 'yyyy-MM-dd')} />
-      )}
+      <Table startDate={startDate} />
     </>
   )
 }
 
-const Table = ({ startDateTime }: { startDateTime: DateTime }) => {
+const Table = ({ startDate }: { startDate: string }) => {
+  const startDateTime = DateTime.fromFormat(startDate, 'yyyy-MM-dd')
   const weekDaysList = [...Array(7)].map((_, add) => {
     return startDateTime.plus({ day: add })
   })
