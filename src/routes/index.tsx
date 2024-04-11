@@ -1,5 +1,5 @@
 import { Outlet, type RouteObject, useRoutes } from 'react-router-dom'
-import { Timetable } from '../Timetable'
+import { Timetable } from '../features/Timetable'
 
 export const AppRoutes = () => {
   const element = useRoutes(routes)
