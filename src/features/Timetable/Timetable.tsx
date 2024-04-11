@@ -4,6 +4,7 @@ import { downloadFile } from '../../utilities/downloadFile'
 
 export const Timetable = () => {
   const [startDate, setStartDate] = useState('')
+  const [fileContents, setFileContents] = useState('')
 
   return (
     <>
@@ -13,10 +14,32 @@ export const Timetable = () => {
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
       />
+      <div>file: {fileContents}</div>
       <Table startDate={startDate} />
       <button onClick={() => downloadFile('sample text', 'sample.txt')}>
         保存
       </button>
+      <input
+        type="file"
+        accept=".txt"
+        onChange={(e) => {
+          const files = e.currentTarget.files
+
+          if (files?.length !== 1) {
+            return
+          }
+
+          const file = files[0]
+
+          const reader = new FileReader()
+          reader.addEventListener('load', () => {
+            if (typeof reader.result === 'string') {
+              setFileContents(reader.result)
+            }
+          })
+          reader.readAsText(file)
+        }}
+      />
     </>
   )
 }
