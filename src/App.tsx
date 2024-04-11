@@ -1,7 +1,12 @@
-import { Timetable } from './Timetable'
+import { AppProvider } from './providers'
+import { AppRoutes } from './routes'
 
 function App() {
-  return <Timetable />
+  return (
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
+  )
 }
 
 export default App
