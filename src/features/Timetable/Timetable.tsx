@@ -22,7 +22,9 @@ export const Timetable = () => {
 }
 
 const Table = ({ startDate }: { startDate: string }) => {
-  const startDateTime = DateTime.fromFormat(startDate, 'yyyy-MM-dd')
+  const startDateTime = startDate
+    ? DateTime.fromFormat(startDate, 'yyyy-MM-dd')
+    : DateTime.fromJSDate(new Date()).startOf('day')
   const weekDaysList = [...Array(7)].map((_, add) => {
     return startDateTime.plus({ day: add })
   })
