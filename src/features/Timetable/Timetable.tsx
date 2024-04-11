@@ -16,7 +16,11 @@ export const Timetable = () => {
       />
       <div>file: {fileContents}</div>
       <Table startDate={startDate} />
-      <button onClick={() => downloadFile('sample text', 'sample.txt')}>
+      <button
+        onClick={() => {
+          downloadFile('sample text: ' + DateTime.now().toISO(), 'sample.txt')
+        }}
+      >
         保存
       </button>
       <input
