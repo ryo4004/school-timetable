@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { DateTime } from 'luxon'
+import { downloadFile } from '../../utilities/downloadFile'
 
 export const Timetable = () => {
   const [startDate, setStartDate] = useState('')
@@ -13,6 +14,9 @@ export const Timetable = () => {
         onChange={(e) => setStartDate(e.target.value)}
       />
       <Table startDate={startDate} />
+      <button onClick={() => downloadFile('sample text', 'sample.txt')}>
+        保存
+      </button>
     </>
   )
 }
