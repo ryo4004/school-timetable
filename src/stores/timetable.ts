@@ -1,7 +1,12 @@
 import { create } from 'zustand'
 import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
-import type { ClassConfig, TimetableConfig, Timetables } from '../types'
+import type {
+  ClassConfig,
+  TimetableConfig,
+  TimetableDate,
+  Timetables,
+} from '../types'
 
 export type Timetable = {
   year: number | null
@@ -13,6 +18,7 @@ type TimetableStore = {
   timetable: Timetable
   createTimetable: (year: number) => void
   updateTimetable: (classes: ClassConfig[]) => void
+  updateTimetableDate: (timetableDate: TimetableDate) => void
   updateSubjects: (subjects: string[]) => void
   loadTimetable: (timetable: Timetable) => void
 }
@@ -103,6 +109,23 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
       timetable: {
         ...state.timetable,
         config: { ...state.timetable.config, classes: updateClasses },
+      },
+    }))
+  },
+  updateTimetableDate: (timetableDate) => {
+    set((state) => ({
+      ...state,
+      timetable: {
+        ...state.timetable,
+        timetables: {
+          ...state.timetable.timetables,
+          list: state.timetable.timetables.list.map((item) => {
+            if (item.date === timetableDate.date) {
+              return timetableDate
+            }
+            return item
+          }),
+        },
       },
     }))
   },

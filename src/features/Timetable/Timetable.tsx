@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom'
 import { useTimetableStore } from '../../stores/timetable'
 import { DateTime } from 'luxon'
 import styles from './Timetable.module.scss'
+import { getWeekDay } from '../../utilities/getWeekDay'
+import { TimetableDate } from '../../types'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -46,12 +48,12 @@ export const Timetable = () => {
               <div key={classItem.id}>
                 <div>{classItem.name}</div>
                 {weekDays.map((date) => {
-                  const item = date.classes[classItem.id]
                   return (
-                    <div key={date.date}>
-                      <div>{item.subject}</div>
-                      <div>{item.note}</div>
-                    </div>
+                    <ClassItem
+                      key={date.date}
+                      timetableDate={date}
+                      classId={classItem.id}
+                    />
                   )
                 })}
               </div>
@@ -63,8 +65,51 @@ export const Timetable = () => {
   )
 }
 
-const getWeekDay = (dateTime: DateTime) => {
-  return ['月', '火', '水', '木', '金', '土', '日'][
-    Number(dateTime.toFormat('c')) - 1
-  ]
+const ClassItem = ({
+  timetableDate,
+  classId,
+}: {
+  timetableDate: TimetableDate
+  classId: string
+}) => {
+  const { timetable, updateTimetableDate } = useTimetableStore()
+
+  const classItem = timetableDate.classes[classId]
+
+  const onUpdate = (selectedSubject: string) => {
+    const newClassItem = {
+      ...classItem,
+      subject: [selectedSubject],
+    }
+
+    const newTimetableDate = {
+      ...timetableDate,
+      classes: {
+        ...timetableDate.classes,
+        [classId]: newClassItem,
+      },
+    }
+
+    updateTimetableDate(newTimetableDate)
+  }
+
+  return (
+    <div>
+      <div>
+        <select
+          value={classItem.subject[0] ?? ''}
+          onChange={(e) => onUpdate(e.target.value)}
+        >
+          <option value=""></option>
+          {timetable.config.subjects.map((subject) => (
+            <option key={subject} value={subject}>
+              {subject}
+            </option>
+          ))}
+        </select>
+        {classItem.subject.join(', ')}
+      </div>
+      <div>{classItem.note}</div>
+    </div>
+  )
 }

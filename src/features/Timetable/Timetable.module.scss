@@ -3,4 +3,8 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
   }
+  & > div:nth-of-type(2) > div {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
 }

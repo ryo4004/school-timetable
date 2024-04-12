@@ -16,7 +16,7 @@ export type TimetableDate = {
 }
 
 export type TimetableClass = {
-  subject: []
+  subject: string[]
   note: string
 }
 
