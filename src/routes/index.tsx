@@ -2,6 +2,7 @@ import { Outlet, type RouteObject, useRoutes } from 'react-router-dom'
 import { Timetable } from '../features/Timetable'
 import { Settings } from '../features/settings'
 import { Layout } from '../components/Layout/Layout'
+import { Dashboard } from '../features/Dashboard'
 
 export const AppRoutes = () => {
   const element = useRoutes(routes)
@@ -17,7 +18,8 @@ const routes: RouteObject[] = [
       </Layout>
     ),
     children: [
-      { path: '/', element: <Timetable /> },
+      { path: '/', element: <Dashboard /> },
+      { path: '/:date', element: <Timetable /> },
       {
         path: '/settings',
         element: <Settings />,
