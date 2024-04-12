@@ -29,15 +29,35 @@ export const Timetable = () => {
         週案{weekCount}: {week?.note}
       </h2>
       <div className={styles.timetable}>
-        <div></div>
-        {weekDays.map((date) => {
-          const dateTime = DateTime.fromISO(date.date)
-          return (
-            <div key={date.date}>
-              {dateTime.toFormat('M/d')} {getWeekDay(dateTime)}
-            </div>
-          )
-        })}
+        <div>
+          <div></div>
+          {weekDays.map((date) => {
+            const dateTime = DateTime.fromISO(date.date)
+            return (
+              <div key={date.date}>
+                {dateTime.toFormat('M/d')} {getWeekDay(dateTime)}
+              </div>
+            )
+          })}
+        </div>
+        <div>
+          {timetable.config.classes.map((classItem) => {
+            return (
+              <div key={classItem.id}>
+                <div>{classItem.name}</div>
+                {weekDays.map((date) => {
+                  const item = date.classes[classItem.id]
+                  return (
+                    <div key={date.date}>
+                      <div>{item.subject}</div>
+                      <div>{item.note}</div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

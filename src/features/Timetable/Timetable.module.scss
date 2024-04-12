@@ -1,4 +1,6 @@
 .timetable {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  & > div:first-of-type {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
