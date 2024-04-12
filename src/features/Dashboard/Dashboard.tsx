@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTimetableStore } from '../../stores/timetable'
 import { LoadButton } from './LoadButton'
 import { SaveButton } from './SaveButton'
+import { Link } from 'react-router-dom'
 
 export const Dashboard = () => {
   const [startDate, setStartDate] = useState('')
@@ -39,7 +40,13 @@ const WeekTable = () => {
       <details>
         <summary>週一覧</summary>
         {timetable.timetables.weeks.map((week) => {
-          return <div key={week.firstDate}>{week.firstDate}</div>
+          return (
+            <div key={week.firstDate}>
+              <Link to={`/${week.firstDate.replace(/-/g, '')}`}>
+                {week.firstDate}
+              </Link>
+            </div>
+          )
         })}
       </details>
     </>
