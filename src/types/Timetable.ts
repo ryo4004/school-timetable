@@ -1,6 +1,6 @@
 export type Timetables = {
   weeks: TimetableWeek[]
-  timetables: TimetableDate[]
+  list: TimetableDate[]
 }
 
 export type TimetableWeek = {

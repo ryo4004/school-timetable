@@ -4,10 +4,12 @@ import { v4 as uuidv4 } from 'uuid'
 import type { ClassConfig, TimetableConfig, Timetables } from '../types'
 
 type TimetableStore = {
-  year: number | null
-  timetable: Timetables
+  timetable: {
+    year: number | null
+    timetables: Timetables
+    config: TimetableConfig
+  }
   createTimetable: (year: number) => void
-  config: TimetableConfig
   updateTimetable: (classes: ClassConfig[]) => void
 }
 
@@ -30,14 +32,14 @@ const getInitialTimetable = (
     return { ...acc, [current.id]: { subject: [], note: '' } }
   }, {})
 
-  const timetables = [...Array(diff)].map((_, index) => {
+  const timetableList = [...Array(diff)].map((_, index) => {
     return {
       date: firstDate.plus({ day: index }).toISODate() ?? '',
       classes: timetableDate,
     }
   })
 
-  const weeks = timetables
+  const weeks = timetableList
     .filter((timetable) => {
       const date = DateTime.fromISO(timetable.date)
       return date.toFormat('c') === '1' // 月曜日
@@ -49,11 +51,9 @@ const getInitialTimetable = (
       }
     })
 
-  console.log({ weeks, timetables })
-
   return {
     weeks,
-    timetables,
+    list: timetableList,
   }
 }
 
@@ -76,21 +76,29 @@ const getUniqueId = () => {
 }
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
-  year: null,
-  timetable: { weeks: [], timetables: [] },
+  timetable: {
+    year: null,
+    timetables: { weeks: [], list: [] },
+    config: {
+      classes: getInitialTimetableConfig(),
+    },
+  },
   createTimetable: (year: number) => {
     set((state) => ({
       ...state,
-      timetable: getInitialTimetable(year, state.config.classes),
+      timetable: {
+        ...state.timetable,
+        timetables: getInitialTimetable(year, state.timetable.config.classes),
+      },
     }))
-  },
-  config: {
-    classes: getInitialTimetableConfig(),
   },
   updateTimetable: (updateClasses: ClassConfig[]) => {
     set((state) => ({
       ...state,
-      config: { ...state.config, classes: updateClasses },
+      timetable: {
+        ...state.timetable,
+        config: { ...state.timetable.config, classes: updateClasses },
+      },
     }))
   },
 }))

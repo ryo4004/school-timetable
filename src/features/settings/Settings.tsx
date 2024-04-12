@@ -1,7 +1,10 @@
 import { useTimetableStore } from '../../stores/timetable'
 
 export const Settings = () => {
-  const { config, createTimetable } = useTimetableStore()
+  const {
+    timetable: { config },
+    createTimetable,
+  } = useTimetableStore()
 
   return (
     <>
