@@ -26,8 +26,24 @@ export const Timetable = () => {
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
       />
+      <WeekTable />
       <Table startDate={startDate} />
       <SaveButton />
+    </>
+  )
+}
+
+const WeekTable = () => {
+  const { timetable } = useTimetableStore()
+
+  return (
+    <>
+      <details>
+        <summary>週一覧</summary>
+        {timetable.timetables.weeks.map((week) => {
+          return <div key={week.firstDate}>{week.firstDate}</div>
+        })}
+      </details>
     </>
   )
 }
