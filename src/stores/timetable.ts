@@ -13,6 +13,7 @@ type TimetableStore = {
   timetable: Timetable
   createTimetable: (year: number) => void
   updateTimetable: (classes: ClassConfig[]) => void
+  updateSubjects: (subjects: string[]) => void
   loadTimetable: (timetable: Timetable) => void
 }
 
@@ -84,6 +85,7 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
     timetables: { weeks: [], list: [] },
     config: {
       classes: getInitialTimetableConfig(),
+      subjects: [],
     },
   },
   createTimetable: (year: number) => {
@@ -101,6 +103,18 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
       timetable: {
         ...state.timetable,
         config: { ...state.timetable.config, classes: updateClasses },
+      },
+    }))
+  },
+  updateSubjects: (subjects) => {
+    set((state) => ({
+      ...state,
+      timetable: {
+        ...state.timetable,
+        config: {
+          ...state.timetable.config,
+          subjects,
+        },
       },
     }))
   },
