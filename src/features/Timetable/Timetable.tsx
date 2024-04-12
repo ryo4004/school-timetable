@@ -9,7 +9,7 @@ export const Timetable = () => {
 
   const { timetable } = useTimetableStore()
 
-  if (timetable.length === 0) {
+  if (timetable.timetables.length === 0) {
     return <>時間割の初期化が必要です</>
   }
 

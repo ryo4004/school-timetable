@@ -1,13 +1,19 @@
-export type Timetables = TimetableWeek[]
+export type Timetables = {
+  weeks: TimetableWeek[]
+  timetables: TimetableDate[]
+}
 
 export type TimetableWeek = {
+  startDate: string
   note: string
-  list: TimetableDate[]
 }
 
 type TimetableKey = string
 
-export type TimetableDate = Record<TimetableKey, TimetableClass>
+export type TimetableDate = {
+  date: string
+  classes: Record<TimetableKey, TimetableClass>
+}
 
 export type TimetableClass = {
   subject: []

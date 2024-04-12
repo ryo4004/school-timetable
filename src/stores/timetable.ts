@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid'
 import type { ClassConfig, TimetableConfig, Timetables } from '../types'
 
 type TimetableStore = {
-  year: 2024
+  year: number | null
   timetable: Timetables
-  createTimetable: () => void
+  createTimetable: (year: number) => void
   config: TimetableConfig
   updateTimetable: (classes: ClassConfig[]) => void
 }
@@ -30,9 +30,17 @@ const getInitialTimetable = (
   const diff = Math.round(lastDate.diff(firstDate, 'days').days)
   const timetableDate = classConfig.reduce((acc, current) => {
     return { ...acc, [current.id]: { subject: [], note: '' } }
-  }, [])
+  }, {})
 
-  return [...Array(diff)].fill(timetableDate)
+  const fullYearTimetables = [...Array(diff)].map((acc) => ({
+    date: firstDate.plus({ day: acc }).toISODate() ?? '',
+    classes: timetableDate,
+  }))
+
+  return {
+    weeks: [],
+    timetables: fullYearTimetables,
+  }
 }
 
 const getInitialTimetableConfig = () => {
@@ -50,12 +58,12 @@ const getInitialTimetableConfig = () => {
 }
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
-  year: 2024,
-  timetable: [],
-  createTimetable: () => {
+  year: null,
+  timetable: { weeks: [], timetables: [] },
+  createTimetable: (year: number) => {
     set((state) => ({
       ...state,
-      timetable: getInitialTimetable(2024, getInitialTimetableConfig()),
+      timetable: getInitialTimetable(year, state.config.classes),
     }))
   },
   config: {

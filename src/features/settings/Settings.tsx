@@ -11,7 +11,7 @@ export const Settings = () => {
           {index}: {classItem.name}
         </div>
       ))}
-      <button onClick={() => createTimetable()}>作成</button>
+      <button onClick={() => createTimetable(2024)}>作成</button>
     </>
   )
 }
