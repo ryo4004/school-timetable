@@ -4,7 +4,7 @@ export type Timetables = {
 }
 
 export type TimetableWeek = {
-  startDate: string
+  firstDate: string // 月曜日
   note: string
 }
 

@@ -16,9 +16,7 @@ const getFirstDate = (year: number) => {
 }
 
 const getLastDate = (year: number) => {
-  return DateTime.fromISO(`${year + 1}-03-31`)
-    .endOf('week')
-    .plus({ day: 1 })
+  return DateTime.fromISO(`${year + 1}-03-31`).endOf('week')
 }
 
 const getInitialTimetable = (
@@ -32,14 +30,30 @@ const getInitialTimetable = (
     return { ...acc, [current.id]: { subject: [], note: '' } }
   }, {})
 
-  const fullYearTimetables = [...Array(diff)].map((acc) => ({
-    date: firstDate.plus({ day: acc }).toISODate() ?? '',
-    classes: timetableDate,
-  }))
+  const timetables = [...Array(diff)].map((_, index) => {
+    return {
+      date: firstDate.plus({ day: index }).toISODate() ?? '',
+      classes: timetableDate,
+    }
+  })
+
+  const weeks = timetables
+    .filter((timetable) => {
+      const date = DateTime.fromISO(timetable.date)
+      return date.toFormat('c') === '1' // 月曜日
+    })
+    .map((timetable) => {
+      return {
+        firstDate: timetable.date,
+        note: '',
+      }
+    })
+
+  console.log({ weeks, timetables })
 
   return {
-    weeks: [],
-    timetables: fullYearTimetables,
+    weeks,
+    timetables,
   }
 }
 
