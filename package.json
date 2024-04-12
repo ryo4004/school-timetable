@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
-    "format": "prettier --log-level warn --cache --write '**/*.{ts,tsx,css}'",
+    "format": "prettier --log-level warn --cache --write '**/*.{ts,tsx,css,scss}'",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install"
@@ -39,6 +39,6 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
-    "*.{ts,tsx,css}": "prettier --write"
+    "*.{ts,tsx,css,scss}": "prettier --write"
   }
 }
