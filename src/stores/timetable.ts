@@ -3,14 +3,17 @@ import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
 import type { ClassConfig, TimetableConfig, Timetables } from '../types'
 
+export type Timetable = {
+  year: number | null
+  timetables: Timetables
+  config: TimetableConfig
+}
+
 type TimetableStore = {
-  timetable: {
-    year: number | null
-    timetables: Timetables
-    config: TimetableConfig
-  }
+  timetable: Timetable
   createTimetable: (year: number) => void
   updateTimetable: (classes: ClassConfig[]) => void
+  loadTimetable: (timetable: Timetable) => void
 }
 
 const getFirstDate = (year: number) => {
@@ -99,6 +102,12 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
         ...state.timetable,
         config: { ...state.timetable.config, classes: updateClasses },
       },
+    }))
+  },
+  loadTimetable: (timetable) => {
+    set((state) => ({
+      ...state,
+      timetable,
     }))
   },
 }))

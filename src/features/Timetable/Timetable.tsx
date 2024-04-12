@@ -1,16 +1,21 @@
 import { useState } from 'react'
 import { DateTime } from 'luxon'
-import { downloadFile } from '../../utilities/downloadFile'
 import { useTimetableStore } from '../../stores/timetable'
+import { LoadButton } from './LoadButton'
+import { SaveButton } from './SaveButton'
 
 export const Timetable = () => {
   const [startDate, setStartDate] = useState('')
-  const [fileContents, setFileContents] = useState('')
 
   const { timetable } = useTimetableStore()
 
   if (timetable.timetables.list.length === 0) {
-    return <>時間割の初期化が必要です</>
+    return (
+      <>
+        時間割の初期化が必要です
+        <LoadButton />
+      </>
+    )
   }
 
   return (
@@ -21,36 +26,8 @@ export const Timetable = () => {
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
       />
-      <div>file: {fileContents}</div>
       <Table startDate={startDate} />
-      <button
-        onClick={() => {
-          downloadFile(JSON.stringify(timetable), 'sample.txt')
-        }}
-      >
-        保存
-      </button>
-      <input
-        type="file"
-        accept=".txt"
-        onChange={(e) => {
-          const files = e.currentTarget.files
-
-          if (files?.length !== 1) {
-            return
-          }
-
-          const file = files[0]
-
-          const reader = new FileReader()
-          reader.addEventListener('load', () => {
-            if (typeof reader.result === 'string') {
-              setFileContents(reader.result)
-            }
-          })
-          reader.readAsText(file)
-        }}
-      />
+      <SaveButton />
     </>
   )
 }
