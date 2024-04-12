@@ -19,7 +19,7 @@ const routes: RouteObject[] = [
     ),
     children: [
       { path: '/', element: <Dashboard /> },
-      { path: '/:date', element: <Timetable /> },
+      { path: '/:key', element: <Timetable /> },
       {
         path: '/settings',
         element: <Settings />,
