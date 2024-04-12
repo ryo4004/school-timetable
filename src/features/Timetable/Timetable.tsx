@@ -25,7 +25,7 @@ export const Timetable = () => {
       <Table startDate={startDate} />
       <button
         onClick={() => {
-          downloadFile('sample text: ' + DateTime.now().toISO(), 'sample.txt')
+          downloadFile(JSON.stringify(timetable), 'sample.txt')
         }}
       >
         保存
