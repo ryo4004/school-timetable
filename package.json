@@ -8,8 +8,12 @@
     "dev": "vite",
     "format": "prettier --log-level warn --cache --write '**/*.{ts,tsx,css,scss}'",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preview": "vite preview"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix",
+    "*.{ts,tsx,css,scss}": "prettier --write"
   },
   "dependencies": {
     "luxon": "^3.4.4",
@@ -36,9 +40,5 @@
     "sass": "^1.74.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": "eslint --cache --fix",
-    "*.{ts,tsx,css,scss}": "prettier --write"
   }
 }
