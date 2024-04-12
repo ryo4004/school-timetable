@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import { DateTime } from 'luxon'
 import { downloadFile } from '../../utilities/downloadFile'
+import { useTimetableStore } from '../../stores/timetable'
 
 export const Timetable = () => {
   const [startDate, setStartDate] = useState('')
   const [fileContents, setFileContents] = useState('')
+
+  const { timetable } = useTimetableStore()
+
+  if (timetable.length === 0) {
+    return <>時間割の初期化が必要です</>
+  }
 
   return (
     <>
