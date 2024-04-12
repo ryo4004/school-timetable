@@ -4,6 +4,7 @@ import { DateTime } from 'luxon'
 import styles from './Timetable.module.scss'
 import { getWeekDay } from '../../utilities/getWeekDay'
 import { TimetableDate } from '../../types'
+import { useMemo } from 'react'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -11,19 +12,26 @@ export const Timetable = () => {
 
   const date = DateTime.fromFormat(key!, 'yyyyMMdd').toFormat('yyyy-MM-dd')
 
-  const week = timetable.timetables.weeks.find(
-    (week) => week.firstDate === date,
-  )
-  const weekCount =
-    timetable.timetables.weeks.findIndex((week) => week.firstDate === date) + 1
+  const week = useMemo(() => {
+    return timetable.timetables.weeks.find((week) => week.firstDate === date)
+  }, [timetable.timetables.weeks, date])
 
-  const weekDays = timetable.timetables.list.filter((timetable) => {
-    const firstDate = DateTime.fromISO(week?.firstDate ?? '')
-    const lastDate = firstDate.plus({ day: 6 })
-    const targetDate = DateTime.fromISO(timetable.date)
+  const weekCount = useMemo(() => {
+    return (
+      timetable.timetables.weeks.findIndex((week) => week.firstDate === date) +
+      1
+    )
+  }, [timetable.timetables.weeks, date])
 
-    return firstDate <= targetDate && lastDate >= targetDate
-  })
+  const weekDays = useMemo(() => {
+    return timetable.timetables.list.filter((timetable) => {
+      const firstDate = DateTime.fromISO(week?.firstDate ?? '')
+      const lastDate = firstDate.plus({ day: 6 })
+      const targetDate = DateTime.fromISO(timetable.date)
+
+      return firstDate <= targetDate && lastDate >= targetDate
+    })
+  }, [timetable.timetables.list, week])
 
   return (
     <div>
