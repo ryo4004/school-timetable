@@ -9,7 +9,6 @@ import type {
 } from '../types'
 
 export type Timetable = {
-  year: number | null
   timetables: Timetables
   config: TimetableConfig
 }
@@ -87,9 +86,12 @@ const getUniqueId = () => {
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
   timetable: {
-    year: null,
-    timetables: { weeks: [], list: [] },
+    timetables: {
+      weeks: [],
+      list: [],
+    },
     config: {
+      year: null,
       classes: getInitialTimetableConfig(),
       subjects: [],
     },

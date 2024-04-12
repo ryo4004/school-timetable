@@ -26,6 +26,7 @@ export type ClassConfig = {
 }
 
 export type TimetableConfig = {
+  year: number | null
   classes: ClassConfig[]
   subjects: string[]
 }
