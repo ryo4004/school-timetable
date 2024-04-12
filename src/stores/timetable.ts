@@ -45,16 +45,20 @@ const getInitialTimetable = (
 
 const getInitialTimetableConfig = () => {
   return [
-    { id: uuidv4(), name: '' },
-    { id: uuidv4(), name: '1' },
-    { id: uuidv4(), name: '2' },
-    { id: uuidv4(), name: '' },
-    { id: uuidv4(), name: '3' },
-    { id: uuidv4(), name: '4' },
-    { id: uuidv4(), name: '' },
-    { id: uuidv4(), name: '5' },
-    { id: uuidv4(), name: '6' },
+    { id: getUniqueId(), name: '' },
+    { id: getUniqueId(), name: '1' },
+    { id: getUniqueId(), name: '2' },
+    { id: getUniqueId(), name: '' },
+    { id: getUniqueId(), name: '3' },
+    { id: getUniqueId(), name: '4' },
+    { id: getUniqueId(), name: '' },
+    { id: getUniqueId(), name: '5' },
+    { id: getUniqueId(), name: '6' },
   ]
+}
+
+const getUniqueId = () => {
+  return uuidv4().split('-')[0]
 }
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
