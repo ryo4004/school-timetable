@@ -1,4 +1,4 @@
-export type TimetableYear = TimetableWeek[]
+export type Timetables = TimetableWeek[]
 
 export type TimetableWeek = {
   note: string
@@ -11,7 +11,7 @@ export type TimetableDate = Record<TimetableKey, TimetableClass>
 
 export type TimetableClass = {
   subject: []
-  memo: string
+  note: string
 }
 
 export type ClassConfig = {
