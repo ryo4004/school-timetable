@@ -7,6 +7,7 @@ import { getWeekDay } from '../../utilities/getWeekDay'
 import { TimetableDate } from '../../types'
 import { useConfigStore } from '../../stores/configs'
 import { SubjectSelect } from './SubjectSelect'
+import { TimetableEdit } from './TimetableEdit'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -60,6 +61,7 @@ export const Timetable = () => {
           })}
         </div>
       </div>
+      <TimetableEdit />
     </div>
   )
 }
