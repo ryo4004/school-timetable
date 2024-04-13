@@ -4,6 +4,8 @@ import { getWeekDay } from '../../utilities/getWeekDay'
 import { useConfigStore } from '../../stores/configs'
 import { useTimetableStore } from '../../stores/timetable'
 import { SubjectSelect } from './SubjectSelect'
+import { useState } from 'react'
+import { truthy } from '../../utilities/truthy'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -55,14 +57,16 @@ const ClassItem = ({
 
   const classItem = timetableDate.classes[classConfig.id]
 
-  const onUpdate = (selectedSubject: string) => {
+  const [isDivide, setIsDivide] = useState(classItem.subject.length > 1)
+
+  const onUpdate = (selectedSubjects: string[]) => {
     const newTimetableDate = {
       ...timetableDate,
       classes: {
         ...timetableDate.classes,
         [classConfig.id]: {
           ...classItem,
-          subject: [selectedSubject],
+          subject: selectedSubjects,
         },
       },
     }
@@ -92,8 +96,50 @@ const ClassItem = ({
       <div>
         <SubjectSelect
           value={classItem.subject[0] ?? ''}
-          onChange={(e) => onUpdate(e.target.value)}
+          onChange={(e) => {
+            onUpdate(
+              [
+                e.target.value,
+                classItem.subject[1],
+                classItem.subject[2],
+              ].filter(truthy),
+            )
+          }}
         />
+        {isDivide && (
+          <>
+            <SubjectSelect
+              value={classItem.subject[1] ?? ''}
+              onChange={(e) => {
+                onUpdate(
+                  [
+                    classItem.subject[0],
+                    e.target.value,
+                    classItem.subject[2],
+                  ].filter(truthy),
+                )
+              }}
+            />
+            <SubjectSelect
+              value={classItem.subject[2] ?? ''}
+              onChange={(e) => {
+                onUpdate(
+                  [
+                    classItem.subject[0],
+                    classItem.subject[1],
+                    e.target.value,
+                  ].filter(truthy),
+                )
+              }}
+            />
+          </>
+        )}
+        <input
+          type="checkbox"
+          checked={isDivide}
+          onChange={(e) => setIsDivide(e.target.checked)}
+        />
+        <label>分割</label>
       </div>
       <div>{classItem.note}</div>
     </div>
