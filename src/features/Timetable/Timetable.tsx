@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { useTimetableStore } from '../../stores/timetable'
 import { DateTime } from 'luxon'
 import styles from './Timetable.module.scss'
@@ -25,7 +25,7 @@ export const Timetable = () => {
   }, [timetables, startDate])
 
   if (!weekTimetable) {
-    return 'not found'
+    return <Navigate to="/" />
   }
 
   return (
