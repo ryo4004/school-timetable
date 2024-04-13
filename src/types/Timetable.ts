@@ -8,7 +8,7 @@ export type TimetableWeek = {
   note: string
 }
 
-type TimetableKey = string
+export type TimetableKey = string
 
 export type TimetableDate = {
   date: string

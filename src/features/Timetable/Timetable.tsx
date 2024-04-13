@@ -1,11 +1,12 @@
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTimetableStore } from '../../stores/timetable'
 import { DateTime } from 'luxon'
 import styles from './Timetable.module.scss'
 import { getWeekDay } from '../../utilities/getWeekDay'
 import { TimetableDate } from '../../types'
-import { useMemo } from 'react'
 import { useConfigStore } from '../../stores/configs'
+import { SubjectSelect } from './SubjectSelect'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -80,7 +81,6 @@ const ClassItem = ({
   classId: string
 }) => {
   const { updateTimetableDate } = useTimetableStore()
-  const { config } = useConfigStore()
 
   const classItem = timetableDate.classes[classId]
 
@@ -104,17 +104,10 @@ const ClassItem = ({
   return (
     <div>
       <div>
-        <select
+        <SubjectSelect
           value={classItem.subject[0] ?? ''}
           onChange={(e) => onUpdate(e.target.value)}
-        >
-          <option value=""></option>
-          {config.subjects.map((subject) => (
-            <option key={subject} value={subject}>
-              {subject}
-            </option>
-          ))}
-        </select>
+        />
         {classItem.subject.join(', ')}
       </div>
       <div>{classItem.note}</div>
