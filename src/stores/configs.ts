@@ -6,6 +6,7 @@ export type ConfigStore = {
   config: TimetableConfig
   updateTimetable: (classes: ClassConfig[]) => void
   updateSubjects: (subjects: string[]) => void
+  loadConfig: (config: TimetableConfig) => void
 }
 
 const getInitialTimetableConfig = () => {
@@ -52,6 +53,12 @@ export const useConfigStore = create<ConfigStore>((set) => ({
         ...state.config,
         subjects,
       },
+    }))
+  },
+  loadConfig: (config) => {
+    set((state) => ({
+      ...state,
+      config,
     }))
   },
 }))

@@ -1,14 +1,18 @@
 import { DateTime } from 'luxon'
 import { type Timetable, useTimetableStore } from '../../stores/timetable'
 import { downloadFile } from '../../utilities/downloadFile'
+import { useConfigStore } from '../../stores/configs'
+import { type TimetableConfig } from '../../types'
 
 export type SaveTimetable = {
   version: string
   timetable: Timetable
+  config: TimetableConfig
 }
 
 export const SaveButton = () => {
   const { timetable } = useTimetableStore()
+  const { config } = useConfigStore()
 
   return (
     <button
@@ -16,6 +20,7 @@ export const SaveButton = () => {
         const saveContents = {
           version: '0.0.1',
           timetable,
+          config,
         }
         const dateString = DateTime.now().toFormat('yyyyMMdd')
         downloadFile(

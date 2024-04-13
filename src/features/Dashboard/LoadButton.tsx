@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useTimetableStore } from '../../stores/timetable'
 import { type SaveTimetable } from './SaveButton'
+import { useConfigStore } from '../../stores/configs'
 
 export const LoadButton = () => {
   const [fileName, setFileName] = useState('')
   const { loadTimetable } = useTimetableStore()
+  const { loadConfig } = useConfigStore()
 
   return (
     <>
@@ -27,8 +29,9 @@ export const LoadButton = () => {
               setFileName(file.name)
               try {
                 const json = JSON.parse(reader.result)
-                if (isSaveTimetable(json)) {
-                  json.version === '0.0.1' && loadTimetable(json.timetable)
+                if (isSaveTimetable(json) && json.version === '0.0.1') {
+                  loadTimetable(json.timetable)
+                  loadConfig(json.config)
                 }
               } catch (error) {
                 console.log(error)
