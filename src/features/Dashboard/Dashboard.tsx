@@ -9,7 +9,7 @@ export const Dashboard = () => {
 
   const { timetable } = useTimetableStore()
 
-  if (timetable.timetables.list.length === 0) {
+  if (timetable.list.length === 0) {
     return (
       <>
         時間割の初期化が必要です
@@ -39,7 +39,7 @@ const WeekTable = () => {
     <>
       <details>
         <summary>週一覧</summary>
-        {timetable.timetables.weeks.map((week) => {
+        {timetable.weeks.map((week) => {
           return (
             <div key={week.firstDate}>
               <Link to={`/${week.firstDate.replace(/-/g, '')}`}>

@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
-import { type Timetable, useTimetableStore } from '../../stores/timetable'
+import { useTimetableStore } from '../../stores/timetable'
 import { downloadFile } from '../../utilities/downloadFile'
 import { useConfigStore } from '../../stores/configs'
-import { type TimetableConfig } from '../../types'
+import { type Timetable, type TimetableConfig } from '../../types'
 
 export type SaveTimetable = {
   version: string

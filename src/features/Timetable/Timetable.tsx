@@ -15,25 +15,22 @@ export const Timetable = () => {
   const date = DateTime.fromFormat(key!, 'yyyyMMdd').toFormat('yyyy-MM-dd')
 
   const week = useMemo(() => {
-    return timetable.timetables.weeks.find((week) => week.firstDate === date)
-  }, [timetable.timetables.weeks, date])
+    return timetable.weeks.find((week) => week.firstDate === date)
+  }, [timetable.weeks, date])
 
   const weekCount = useMemo(() => {
-    return (
-      timetable.timetables.weeks.findIndex((week) => week.firstDate === date) +
-      1
-    )
-  }, [timetable.timetables.weeks, date])
+    return timetable.weeks.findIndex((week) => week.firstDate === date) + 1
+  }, [timetable.weeks, date])
 
   const weekDays = useMemo(() => {
-    return timetable.timetables.list.filter((timetable) => {
+    return timetable.list.filter((timetable) => {
       const firstDate = DateTime.fromISO(week?.firstDate ?? '')
       const lastDate = firstDate.plus({ day: 6 })
       const targetDate = DateTime.fromISO(timetable.date)
 
       return firstDate <= targetDate && lastDate >= targetDate
     })
-  }, [timetable.timetables.list, week])
+  }, [timetable.list, week])
 
   return (
     <div>

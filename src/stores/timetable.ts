@@ -1,10 +1,6 @@
 import { create } from 'zustand'
 import { DateTime } from 'luxon'
-import type { ClassConfig, TimetableDate, Timetables } from '../types'
-
-export type Timetable = {
-  timetables: Timetables
-}
+import type { ClassConfig, TimetableDate, Timetable } from '../types'
 
 type TimetableStore = {
   timetable: Timetable
@@ -24,7 +20,7 @@ const getLastDate = (year: number) => {
 const getInitialTimetable = (
   year: number,
   classConfig: ClassConfig[],
-): Timetables => {
+): Timetable => {
   const firstDate = getFirstDate(year)
   const lastDate = getLastDate(year)
   const diff = Math.round(lastDate.diff(firstDate, 'days').days)
@@ -59,10 +55,8 @@ const getInitialTimetable = (
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
   timetable: {
-    timetables: {
-      weeks: [],
-      list: [],
-    },
+    weeks: [],
+    list: [],
   },
   createTimetable: (year: number, classes: ClassConfig[]) => {
     set((state) => ({
@@ -78,15 +72,12 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
       ...state,
       timetable: {
         ...state.timetable,
-        timetables: {
-          ...state.timetable.timetables,
-          list: state.timetable.timetables.list.map((item) => {
-            if (item.date === timetableDate.date) {
-              return timetableDate
-            }
-            return item
-          }),
-        },
+        list: state.timetable.list.map((item) => {
+          if (item.date === timetableDate.date) {
+            return timetableDate
+          }
+          return item
+        }),
       },
     }))
   },

@@ -1,4 +1,4 @@
-export type Timetables = {
+export type Timetable = {
   weeks: TimetableWeek[]
   list: TimetableDate[]
 }
