@@ -10,38 +10,28 @@ import { SubjectSelect } from './SubjectSelect'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
-  const { timetable } = useTimetableStore()
+  const { timetables } = useTimetableStore()
   const { config } = useConfigStore()
 
   const date = DateTime.fromFormat(key!, 'yyyyMMdd').toFormat('yyyy-MM-dd')
 
-  const week = useMemo(() => {
-    return timetable.weeks.find((week) => week.firstDate === date)
-  }, [timetable.weeks, date])
+  const weekTimetable = useMemo(() => {
+    return timetables.find((week) => week.firstDate === date)
+  }, [timetables, date])
 
-  const weekCount = useMemo(() => {
-    return timetable.weeks.findIndex((week) => week.firstDate === date) + 1
-  }, [timetable.weeks, date])
-
-  const weekDays = useMemo(() => {
-    return timetable.list.filter((timetable) => {
-      const firstDate = DateTime.fromISO(week?.firstDate ?? '')
-      const lastDate = firstDate.plus({ day: 6 })
-      const targetDate = DateTime.fromISO(timetable.date)
-
-      return firstDate <= targetDate && lastDate >= targetDate
-    })
-  }, [timetable.list, week])
+  const weekIndex = useMemo(() => {
+    return timetables.findIndex((week) => week.firstDate === date) + 1
+  }, [timetables, date])
 
   return (
     <div>
       <h2>
-        週案{weekCount}: {week?.note}
+        週案{weekIndex}: {weekTimetable?.note}
       </h2>
       <div className={styles.timetable}>
         <div>
           <div></div>
-          {weekDays.map((date) => {
+          {weekTimetable?.list.map((date) => {
             const dateTime = DateTime.fromISO(date.date)
             return (
               <div key={date.date}>
@@ -55,10 +45,11 @@ export const Timetable = () => {
             return (
               <div key={classItem.id}>
                 <div>{classItem.name}</div>
-                {weekDays.map((date) => {
+                {weekTimetable?.list.map((date) => {
                   return (
                     <ClassItem
                       key={date.date}
+                      weekIndex={weekIndex}
                       timetableDate={date}
                       classId={classItem.id}
                     />
@@ -74,9 +65,11 @@ export const Timetable = () => {
 }
 
 const ClassItem = ({
+  weekIndex,
   timetableDate,
   classId,
 }: {
+  weekIndex: number
   timetableDate: TimetableDate
   classId: string
 }) => {
@@ -98,7 +91,7 @@ const ClassItem = ({
       },
     }
 
-    updateTimetableDate(newTimetableDate)
+    updateTimetableDate(weekIndex, newTimetableDate)
   }
 
   return (

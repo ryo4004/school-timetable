@@ -10,7 +10,7 @@ export const Settings = () => {
   return (
     <>
       <h2>settings</h2>
-      <button onClick={() => createTimetable(2024, config.classes)}>
+      <button onClick={() => createTimetable('2024-04-01', config.classes)}>
         作成
       </button>
       <TimetableSettings />

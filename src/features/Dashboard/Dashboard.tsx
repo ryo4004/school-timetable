@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 export const Dashboard = () => {
   const [startDate, setStartDate] = useState('')
 
-  const { timetable } = useTimetableStore()
+  const { timetables } = useTimetableStore()
 
-  if (timetable.list.length === 0) {
+  if (timetables.length === 0) {
     return (
       <>
         時間割の初期化が必要です
@@ -33,17 +33,17 @@ export const Dashboard = () => {
 }
 
 const WeekTable = () => {
-  const { timetable } = useTimetableStore()
+  const { timetables } = useTimetableStore()
 
   return (
     <>
       <details>
         <summary>週一覧</summary>
-        {timetable.weeks.map((week) => {
+        {timetables.map((weekTimetable) => {
           return (
-            <div key={week.firstDate}>
-              <Link to={`/${week.firstDate.replace(/-/g, '')}`}>
-                {week.firstDate}
+            <div key={weekTimetable.firstDate}>
+              <Link to={`/${weekTimetable.firstDate.replace(/-/g, '')}`}>
+                {weekTimetable.firstDate}
               </Link>
             </div>
           )

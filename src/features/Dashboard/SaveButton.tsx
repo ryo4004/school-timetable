@@ -11,7 +11,7 @@ export type SaveTimetable = {
 }
 
 export const SaveButton = () => {
-  const { timetable } = useTimetableStore()
+  const { timetables } = useTimetableStore()
   const { config } = useConfigStore()
 
   return (
@@ -19,7 +19,7 @@ export const SaveButton = () => {
       onClick={() => {
         const saveContents = {
           version: '0.0.1',
-          timetable,
+          timetables,
           config,
         }
         const dateString = DateTime.now().toFormat('yyyyMMdd')

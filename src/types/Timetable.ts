@@ -1,11 +1,7 @@
 export type Timetable = {
-  weeks: TimetableWeek[]
-  list: TimetableDate[]
-}
-
-export type TimetableWeek = {
   firstDate: string // 月曜日
   note: string
+  list: TimetableDate[]
 }
 
 export type TimetableKey = string

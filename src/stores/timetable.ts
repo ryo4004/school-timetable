@@ -3,82 +3,64 @@ import { DateTime } from 'luxon'
 import type { ClassConfig, TimetableDate, Timetable } from '../types'
 
 type TimetableStore = {
-  timetable: Timetable
-  createTimetable: (year: number, classes: ClassConfig[]) => void
-  updateTimetableDate: (timetableDate: TimetableDate) => void
+  timetables: Timetable[]
+  createTimetable: (firstDate: string, classes: ClassConfig[]) => void
+  updateTimetableDate: (weekIndex: number, timetableDate: TimetableDate) => void
   loadTimetable: (timetable: Timetable) => void
 }
 
-const getFirstDate = (year: number) => {
-  return DateTime.fromISO(`${year}-04-01`).startOf('week').minus({ day: 1 })
-}
-
-const getLastDate = (year: number) => {
-  return DateTime.fromISO(`${year + 1}-03-31`).endOf('week')
-}
-
 const getInitialTimetable = (
-  year: number,
+  firstDate: string,
   classConfig: ClassConfig[],
 ): Timetable => {
-  const firstDate = getFirstDate(year)
-  const lastDate = getLastDate(year)
-  const diff = Math.round(lastDate.diff(firstDate, 'days').days)
+  const firstDateTime = DateTime.fromISO(firstDate)
+
   const timetableDate = classConfig.reduce((acc, current) => {
     return { ...acc, [current.id]: { subject: [], note: '' } }
   }, {})
 
-  const timetableList = [...Array(diff)].map((_, index) => {
+  const timetableList = [...Array(7)].map((_, index) => {
     return {
-      date: firstDate.plus({ day: index }).toISODate() ?? '',
+      date: firstDateTime.plus({ day: index }).toISODate() ?? '',
       classes: timetableDate,
     }
   })
 
-  const weeks = timetableList
-    .filter((timetable) => {
-      const date = DateTime.fromISO(timetable.date)
-      return date.toFormat('c') === '1' // 月曜日
-    })
-    .map((timetable) => {
-      return {
-        firstDate: timetable.date,
-        note: '',
-      }
-    })
-
   return {
-    weeks,
+    firstDate,
+    note: '',
     list: timetableList,
   }
 }
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
-  timetable: {
-    weeks: [],
-    list: [],
-  },
-  createTimetable: (year: number, classes: ClassConfig[]) => {
+  timetables: [],
+  createTimetable: (firstDate: string, classes: ClassConfig[]) => {
     set((state) => ({
       ...state,
-      timetable: {
-        ...state.timetable,
-        timetables: getInitialTimetable(year, classes),
-      },
+      timetables: [
+        ...state.timetables,
+        getInitialTimetable(firstDate, classes),
+      ],
     }))
   },
-  updateTimetableDate: (timetableDate) => {
+  updateTimetableDate: (weekIndex, timetableDate) => {
     set((state) => ({
       ...state,
-      timetable: {
-        ...state.timetable,
-        list: state.timetable.list.map((item) => {
-          if (item.date === timetableDate.date) {
-            return timetableDate
+      timetables: state.timetables.map((timetable, index) => {
+        if (index === weekIndex) {
+          return {
+            ...timetable,
+            list: timetable.list.map((item) => {
+              if (item.date === timetableDate.date) {
+                return timetableDate
+              }
+              return item
+            }),
           }
-          return item
-        }),
-      },
+        }
+        return timetable
+      }),
     }))
   },
   loadTimetable: (timetable) => {
