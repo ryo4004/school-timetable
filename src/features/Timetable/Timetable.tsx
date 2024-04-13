@@ -20,13 +20,13 @@ export const Timetable = () => {
   }, [timetables, date])
 
   const weekIndex = useMemo(() => {
-    return timetables.findIndex((week) => week.firstDate === date) + 1
+    return timetables.findIndex((week) => week.firstDate === date)
   }, [timetables, date])
 
   return (
     <div>
       <h2>
-        週案{weekIndex}: {weekTimetable?.note}
+        週案{weekIndex + 1}: {weekTimetable?.note}
       </h2>
       <div className={styles.timetable}>
         <div>
@@ -73,25 +73,39 @@ const ClassItem = ({
   timetableDate: TimetableDate
   classId: string
 }) => {
-  const { updateTimetableDate } = useTimetableStore()
+  const { timetables, updateTimetables } = useTimetableStore()
 
   const classItem = timetableDate.classes[classId]
 
   const onUpdate = (selectedSubject: string) => {
-    const newClassItem = {
-      ...classItem,
-      subject: [selectedSubject],
-    }
-
     const newTimetableDate = {
       ...timetableDate,
       classes: {
         ...timetableDate.classes,
-        [classId]: newClassItem,
+        [classId]: {
+          ...classItem,
+          subject: [selectedSubject],
+        },
       },
     }
 
-    updateTimetableDate(weekIndex, newTimetableDate)
+    const newTimetables = timetables.map((timetable, index) => {
+      if (index === weekIndex) {
+        return {
+          ...timetable,
+          list: timetable.list.map((week) => {
+            if (week.date === timetableDate.date) {
+              return newTimetableDate
+            }
+
+            return week
+          }),
+        }
+      }
+      return timetable
+    })
+
+    updateTimetables(newTimetables)
   }
 
   return (

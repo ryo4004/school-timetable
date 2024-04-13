@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { DateTime } from 'luxon'
-import type { ClassConfig, TimetableDate, Timetable } from '../types'
+import type { ClassConfig, Timetable } from '../types'
 
 type TimetableStore = {
   timetables: Timetable[]
   createTimetable: (firstDate: string, classes: ClassConfig[]) => void
-  updateTimetableDate: (weekIndex: number, timetableDate: TimetableDate) => void
+  updateTimetables: (newTimetables: Timetable[]) => void
   loadTimetable: (timetable: Timetable) => void
 }
 
@@ -44,23 +44,10 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
       ],
     }))
   },
-  updateTimetableDate: (weekIndex, timetableDate) => {
+  updateTimetables: (newTimetables) => {
     set((state) => ({
       ...state,
-      timetables: state.timetables.map((timetable, index) => {
-        if (index === weekIndex) {
-          return {
-            ...timetable,
-            list: timetable.list.map((item) => {
-              if (item.date === timetableDate.date) {
-                return timetableDate
-              }
-              return item
-            }),
-          }
-        }
-        return timetable
-      }),
+      timetables: newTimetables,
     }))
   },
   loadTimetable: (timetable) => {
