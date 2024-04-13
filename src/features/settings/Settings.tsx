@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { useTimetableStore } from '../../stores/timetable'
+import { useConfigStore } from '../../stores/configs'
 
 export const Settings = () => {
   const [subjectInput, setSubjectInput] = useState('')
 
-  const {
-    timetable: { config },
-    createTimetable,
-    updateSubjects,
-  } = useTimetableStore()
+  const { createTimetable } = useTimetableStore()
+  const { config, updateSubjects } = useConfigStore()
 
   return (
     <>
@@ -18,7 +16,9 @@ export const Settings = () => {
           {index}: {classItem.name}
         </div>
       ))}
-      <button onClick={() => createTimetable(2024)}>作成</button>
+      <button onClick={() => createTimetable(2024, config.classes)}>
+        作成
+      </button>
       <div>
         <input
           value={subjectInput}

@@ -1,24 +1,15 @@
 import { create } from 'zustand'
 import { DateTime } from 'luxon'
-import { v4 as uuidv4 } from 'uuid'
-import type {
-  ClassConfig,
-  TimetableConfig,
-  TimetableDate,
-  Timetables,
-} from '../types'
+import type { ClassConfig, TimetableDate, Timetables } from '../types'
 
 export type Timetable = {
   timetables: Timetables
-  config: TimetableConfig
 }
 
 type TimetableStore = {
   timetable: Timetable
-  createTimetable: (year: number) => void
-  updateTimetable: (classes: ClassConfig[]) => void
+  createTimetable: (year: number, classes: ClassConfig[]) => void
   updateTimetableDate: (timetableDate: TimetableDate) => void
-  updateSubjects: (subjects: string[]) => void
   loadTimetable: (timetable: Timetable) => void
 }
 
@@ -66,51 +57,19 @@ const getInitialTimetable = (
   }
 }
 
-const getInitialTimetableConfig = () => {
-  return [
-    { id: getUniqueId(), name: '' },
-    { id: getUniqueId(), name: '1' },
-    { id: getUniqueId(), name: '2' },
-    { id: getUniqueId(), name: '' },
-    { id: getUniqueId(), name: '3' },
-    { id: getUniqueId(), name: '4' },
-    { id: getUniqueId(), name: '' },
-    { id: getUniqueId(), name: '5' },
-    { id: getUniqueId(), name: '6' },
-  ]
-}
-
-const getUniqueId = () => {
-  return uuidv4().split('-')[0]
-}
-
 export const useTimetableStore = create<TimetableStore>((set) => ({
   timetable: {
     timetables: {
       weeks: [],
       list: [],
     },
-    config: {
-      year: null,
-      classes: getInitialTimetableConfig(),
-      subjects: [],
-    },
   },
-  createTimetable: (year: number) => {
+  createTimetable: (year: number, classes: ClassConfig[]) => {
     set((state) => ({
       ...state,
       timetable: {
         ...state.timetable,
-        timetables: getInitialTimetable(year, state.timetable.config.classes),
-      },
-    }))
-  },
-  updateTimetable: (updateClasses: ClassConfig[]) => {
-    set((state) => ({
-      ...state,
-      timetable: {
-        ...state.timetable,
-        config: { ...state.timetable.config, classes: updateClasses },
+        timetables: getInitialTimetable(year, classes),
       },
     }))
   },
@@ -127,18 +86,6 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
             }
             return item
           }),
-        },
-      },
-    }))
-  },
-  updateSubjects: (subjects) => {
-    set((state) => ({
-      ...state,
-      timetable: {
-        ...state.timetable,
-        config: {
-          ...state.timetable.config,
-          subjects,
         },
       },
     }))

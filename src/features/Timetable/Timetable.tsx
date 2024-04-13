@@ -5,10 +5,12 @@ import styles from './Timetable.module.scss'
 import { getWeekDay } from '../../utilities/getWeekDay'
 import { TimetableDate } from '../../types'
 import { useMemo } from 'react'
+import { useConfigStore } from '../../stores/configs'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
   const { timetable } = useTimetableStore()
+  const { config } = useConfigStore()
 
   const date = DateTime.fromFormat(key!, 'yyyyMMdd').toFormat('yyyy-MM-dd')
 
@@ -51,7 +53,7 @@ export const Timetable = () => {
           })}
         </div>
         <div>
-          {timetable.config.classes.map((classItem) => {
+          {config.classes.map((classItem) => {
             return (
               <div key={classItem.id}>
                 <div>{classItem.name}</div>
@@ -80,7 +82,8 @@ const ClassItem = ({
   timetableDate: TimetableDate
   classId: string
 }) => {
-  const { timetable, updateTimetableDate } = useTimetableStore()
+  const { updateTimetableDate } = useTimetableStore()
+  const { config } = useConfigStore()
 
   const classItem = timetableDate.classes[classId]
 
@@ -109,7 +112,7 @@ const ClassItem = ({
           onChange={(e) => onUpdate(e.target.value)}
         >
           <option value=""></option>
-          {timetable.config.subjects.map((subject) => (
+          {config.subjects.map((subject) => (
             <option key={subject} value={subject}>
               {subject}
             </option>
