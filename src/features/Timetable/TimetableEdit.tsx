@@ -166,7 +166,12 @@ const ClassItem = ({
         )}
         <Checkbox
           checked={isDivide}
-          onChange={(e) => setIsDivide(e.target.checked)}
+          onChange={(e) => {
+            if (!e.target.checked) {
+              onUpdateSubject([classItem.subject[0]])
+            }
+            setIsDivide(e.target.checked)
+          }}
         >
           分割
         </Checkbox>
