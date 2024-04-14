@@ -1,14 +1,18 @@
+import { Box } from '../../components/Layout/Box'
+import { Text } from '../../components/Layout/Text'
 import { ClassesSettings } from './ClassesSettings'
 import { SubjectSettings } from './SubjectSettings'
 import { TimetableSettings } from './TimetableSettings'
 
 export const Settings = () => {
   return (
-    <>
-      <h2>settings</h2>
+    <Box>
+      <Text as="h2" marginY="16px" fontWeight="bold" fontSize="20px">
+        設定
+      </Text>
       <TimetableSettings />
       <SubjectSettings />
       <ClassesSettings />
-    </>
+    </Box>
   )
 }

@@ -2,7 +2,7 @@ import { TimetableKey } from './Timetable'
 
 export const CLASS_TYPE_ORDER = ['class', 'break', 'lunch', 'other'] as const
 
-type ClassTypeKeys = (typeof CLASS_TYPE_ORDER)[number]
+export type ClassTypeKeys = (typeof CLASS_TYPE_ORDER)[number]
 
 export const CLASS_TYPES: Record<
   ClassTypeKeys,

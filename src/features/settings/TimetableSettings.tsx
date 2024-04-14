@@ -1,40 +1,52 @@
 import { WEEKDAYS, Weekday, getWeekNumber } from '../../utilities/getWeekDay'
 import { SubjectSelect } from '../Timetable/SubjectSelect'
 import { useConfigStore } from '../../stores/configs'
-import styles from './TimetableSettings.module.scss'
+import { Text } from '../../components/Layout/Text'
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Thead,
+  Tr,
+} from '../../components/Table/Table'
 
 export const TimetableSettings = () => {
   const { config } = useConfigStore()
 
   return (
     <>
-      <h3>時間割の設定</h3>
-      <div className={styles.timetable}>
-        <div>
-          <div></div>
-          {WEEKDAYS.map((weekday) => (
-            <div key={weekday}>{weekday}</div>
-          ))}
-        </div>
-        <div>
-          {config.classes.map((classItem, index) => (
-            <div key={classItem.id}>
-              <div key={classItem.id}>
-                {index}: {classItem.name}
-              </div>
-              {WEEKDAYS.map((weekday) => {
-                return (
-                  <ClassItem
-                    key={weekday}
-                    weekday={weekday}
-                    classId={classItem.id}
-                  />
-                )
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
+      <Text as="h3" marginTop="16px">
+        時間割の設定
+      </Text>
+      <TableContainer>
+        <Table size="sm">
+          <Thead>
+            <Tr>
+              <Td minWidth="auto"></Td>
+              {WEEKDAYS.map((weekday) => (
+                <Td key={weekday} textAlign="center">
+                  <Text paddingY="8px">{weekday}</Text>
+                </Td>
+              ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {config.classes.map((classItem) => (
+              <Tr key={classItem.id}>
+                <Td minWidth="20px">{classItem.name}</Td>
+                {WEEKDAYS.map((weekday) => {
+                  return (
+                    <Td key={weekday}>
+                      <ClassItem weekday={weekday} classId={classItem.id} />
+                    </Td>
+                  )
+                })}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </>
   )
 }
@@ -62,11 +74,9 @@ const ClassItem = ({
   }
 
   return (
-    <div>
-      <SubjectSelect
-        value={scheduledSubject}
-        onChange={(e) => onUpdate(e.target.value)}
-      />
-    </div>
+    <SubjectSelect
+      value={scheduledSubject}
+      onChange={(e) => onUpdate(e.target.value)}
+    />
   )
 }
