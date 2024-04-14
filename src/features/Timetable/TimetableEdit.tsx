@@ -58,19 +58,12 @@ const ClassItem = ({
   const classItem = timetableDate.classes[classConfig.id]
 
   const [isDivide, setIsDivide] = useState(classItem.subject.length > 1)
+  const [noteInput, setNoteInput] = useState(classItem.note)
 
-  const onUpdate = (selectedSubjects: string[]) => {
-    const newTimetableDate = {
-      ...timetableDate,
-      classes: {
-        ...timetableDate.classes,
-        [classConfig.id]: {
-          ...classItem,
-          subject: selectedSubjects,
-        },
-      },
-    }
-
+  const onUpdateTimetables = (
+    weekIndex: number,
+    newTimetableDate: TimetableDate,
+  ) => {
     const newTimetables = timetables.map((timetable, index) => {
       if (index === weekIndex) {
         return {
@@ -90,6 +83,36 @@ const ClassItem = ({
     updateTimetables(newTimetables)
   }
 
+  const onUpdateSubject = (selectedSubjects: string[]) => {
+    const newTimetableDate = {
+      ...timetableDate,
+      classes: {
+        ...timetableDate.classes,
+        [classConfig.id]: {
+          ...classItem,
+          subject: selectedSubjects,
+        },
+      },
+    }
+
+    onUpdateTimetables(weekIndex, newTimetableDate)
+  }
+
+  const onUpdateNote = () => {
+    const newTimetableDate = {
+      ...timetableDate,
+      classes: {
+        ...timetableDate.classes,
+        [classConfig.id]: {
+          ...classItem,
+          note: noteInput,
+        },
+      },
+    }
+
+    onUpdateTimetables(weekIndex, newTimetableDate)
+  }
+
   return (
     <div>
       <div>{classConfig.name}</div>
@@ -97,7 +120,7 @@ const ClassItem = ({
         <SubjectSelect
           value={classItem.subject[0] ?? ''}
           onChange={(e) => {
-            onUpdate(
+            onUpdateSubject(
               [
                 e.target.value,
                 classItem.subject[1],
@@ -111,7 +134,7 @@ const ClassItem = ({
             <SubjectSelect
               value={classItem.subject[1] ?? ''}
               onChange={(e) => {
-                onUpdate(
+                onUpdateSubject(
                   [
                     classItem.subject[0],
                     e.target.value,
@@ -123,7 +146,7 @@ const ClassItem = ({
             <SubjectSelect
               value={classItem.subject[2] ?? ''}
               onChange={(e) => {
-                onUpdate(
+                onUpdateSubject(
                   [
                     classItem.subject[0],
                     classItem.subject[1],
@@ -142,6 +165,13 @@ const ClassItem = ({
         <label>分割</label>
       </div>
       <div>{classItem.note}</div>
+      <div>
+        <input
+          value={noteInput}
+          onChange={(e) => setNoteInput(e.target.value)}
+        />
+        <button onClick={onUpdateNote}>反映</button>
+      </div>
     </div>
   )
 }
