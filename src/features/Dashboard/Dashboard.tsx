@@ -18,7 +18,7 @@ export const Dashboard = () => {
     if (timetables.find((timetable) => timetable.firstDate === startDate)) {
       return alert('すでに存在します')
     }
-    createTimetable(startDate, config.classes)
+    createTimetable(startDate, config.classes, config.schedule)
   }
 
   return (

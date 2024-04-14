@@ -2,14 +2,21 @@ import { create } from 'zustand'
 import { DateTime } from 'luxon'
 import type {
   ClassConfig,
+  DateSchedule,
   Timetable,
   TimetableClass,
   TimetableKey,
 } from '../types'
+import { getWeek } from '../utilities/getWeekDay'
+import { truthy } from '../utilities/truthy'
 
 type TimetableStore = {
   timetables: Timetable[]
-  createTimetable: (firstDate: string, classes: ClassConfig[]) => void
+  createTimetable: (
+    firstDate: string,
+    classes: ClassConfig[],
+    schedule: DateSchedule[],
+  ) => void
   updateTimetables: (newTimetables: Timetable[]) => void
   loadTimetable: (timetable: Timetable) => void
 }
@@ -17,19 +24,28 @@ type TimetableStore = {
 const getInitialTimetable = (
   firstDate: string,
   classConfig: ClassConfig[],
+  schedule: DateSchedule[],
 ): Timetable => {
   const firstDateTime = DateTime.fromISO(firstDate)
 
-  const timetableDate = classConfig.reduce(
-    (acc, current) => {
-      return { ...acc, [current.id]: { subject: [], note: '' } }
-    },
-    {} as Record<TimetableKey, TimetableClass>,
-  )
-
   const timetableList = [...Array(7)].map((_, index) => {
+    const dateTime = firstDateTime.plus({ day: index })
+
+    const dateSchedule = schedule[getWeek(dateTime)]
+
+    const timetableDate = classConfig.reduce(
+      (acc, current) => {
+        const scheduledClass = dateSchedule[current.id]
+        return {
+          ...acc,
+          [current.id]: { subject: [scheduledClass].filter(truthy), note: '' },
+        }
+      },
+      {} as Record<TimetableKey, TimetableClass>,
+    )
+
     return {
-      date: firstDateTime.plus({ day: index }).toISODate() ?? '',
+      date: dateTime.toISODate() ?? '',
       classes: timetableDate,
     }
   })
@@ -43,12 +59,16 @@ const getInitialTimetable = (
 
 export const useTimetableStore = create<TimetableStore>((set) => ({
   timetables: [],
-  createTimetable: (firstDate: string, classes: ClassConfig[]) => {
+  createTimetable: (
+    firstDate: string,
+    classes: ClassConfig[],
+    schedule: DateSchedule[],
+  ) => {
     set((state) => ({
       ...state,
       timetables: [
         ...state.timetables,
-        getInitialTimetable(firstDate, classes),
+        getInitialTimetable(firstDate, classes, schedule),
       ],
     }))
   },
