@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useTimetableStore } from '../../stores/timetable'
 import { LoadButton } from './LoadButton'
-import { SaveButton } from './SaveButton'
 import { Link } from 'react-router-dom'
 import { useConfigStore } from '../../stores/configs'
 import { ClassCount } from './ClassCount'
@@ -11,11 +10,9 @@ import { Input } from '../../components/Form/Input'
 export const Dashboard = () => {
   return (
     <>
-      <h2>週案くん</h2>
       <CreateTimeTable />
       <WeekTable />
       <ClassCount />
-      <SaveButton />
     </>
   )
 }
@@ -39,6 +36,7 @@ const CreateTimeTable = () => {
 
   return (
     <div>
+      <h2>新しい週案ページを作成</h2>
       <Input
         type="date"
         value={startDate}

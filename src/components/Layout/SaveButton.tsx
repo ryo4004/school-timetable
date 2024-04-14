@@ -3,6 +3,7 @@ import { useTimetableStore } from '../../stores/timetable'
 import { downloadFile } from '../../utilities/downloadFile'
 import { useConfigStore } from '../../stores/configs'
 import { type Timetable, type TimetableConfig } from '../../types'
+import { Button } from '../Form/Button'
 
 export type SaveTimetable = {
   version: string
@@ -15,7 +16,7 @@ export const SaveButton = () => {
   const { config } = useConfigStore()
 
   return (
-    <button
+    <Button
       onClick={() => {
         const saveContents = {
           version: '0.0.1',
@@ -28,8 +29,9 @@ export const SaveButton = () => {
           `timetable_${dateString}.txt`,
         )
       }}
+      borderRadius="0"
     >
       保存
-    </button>
+    </Button>
   )
 }
