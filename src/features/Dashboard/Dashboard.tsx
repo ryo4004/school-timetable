@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useConfigStore } from '../../stores/configs'
 import { ClassCount } from './ClassCount'
 import { isMonday } from '../../utilities/getWeekDay'
+import { Input } from '../../components/Form/Input'
 
 export const Dashboard = () => {
   return (
@@ -38,7 +39,7 @@ const CreateTimeTable = () => {
 
   return (
     <div>
-      <input
+      <Input
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}

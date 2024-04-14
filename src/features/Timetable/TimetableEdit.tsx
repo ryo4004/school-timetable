@@ -6,6 +6,8 @@ import { useTimetableStore } from '../../stores/timetable'
 import { SubjectSelect } from './SubjectSelect'
 import { useState } from 'react'
 import { truthy } from '../../utilities/truthy'
+import { Input } from '../../components/Form/Input'
+import { Checkbox } from '../../components/Form/Checkbox'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -162,15 +164,15 @@ const ClassItem = ({
             />
           </>
         )}
-        <input
-          type="checkbox"
+        <Checkbox
           checked={isDivide}
           onChange={(e) => setIsDivide(e.target.checked)}
-        />
-        <label>分割</label>
+        >
+          分割
+        </Checkbox>
       </div>
       <div>
-        <input
+        <Input
           value={noteInput}
           onChange={(e) => setNoteInput(e.target.value)}
         />

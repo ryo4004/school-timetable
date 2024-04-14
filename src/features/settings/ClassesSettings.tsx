@@ -3,6 +3,7 @@ import { useConfigStore } from '../../stores/configs'
 import { getUniqueId } from '../../utilities/getUniqueId'
 import { CLASS_TYPES, CLASS_TYPE_ORDER } from '../../types'
 import { replaceElements } from '../../utilities/replaceElements'
+import { Input } from '../../components/Form/Input'
 
 export const ClassesSettings = () => {
   const [classesInput, setClassesInput] = useState('')
@@ -13,7 +14,7 @@ export const ClassesSettings = () => {
   return (
     <>
       <h2>授業の設定</h2>
-      <input
+      <Input
         value={classesInput}
         onChange={(e) => setClassesInput(e.target.value)}
       />

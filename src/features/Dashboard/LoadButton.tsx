@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTimetableStore } from '../../stores/timetable'
 import { type SaveTimetable } from './SaveButton'
 import { useConfigStore } from '../../stores/configs'
+import { Input } from '../../components/Form/Input'
 
 export const LoadButton = () => {
   const [fileName, setFileName] = useState('')
@@ -11,7 +12,7 @@ export const LoadButton = () => {
   return (
     <>
       <div>{fileName ?? '読み込まれていません'}</div>
-      <input
+      <Input
         type="file"
         accept=".txt"
         onChange={(e) => {

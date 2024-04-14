@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useConfigStore } from '../../stores/configs'
+import { Input } from '../../components/Form/Input'
 
 export const SubjectSettings = () => {
   const [subjectInput, setSubjectInput] = useState('')
@@ -9,7 +10,7 @@ export const SubjectSettings = () => {
   return (
     <div>
       <h3>教科の設定</h3>
-      <input
+      <Input
         value={subjectInput}
         onChange={(e) => setSubjectInput(e.target.value)}
       />
