@@ -1,6 +1,11 @@
 import { create } from 'zustand'
 import { DateTime } from 'luxon'
-import type { ClassConfig, Timetable } from '../types'
+import type {
+  ClassConfig,
+  Timetable,
+  TimetableClass,
+  TimetableKey,
+} from '../types'
 
 type TimetableStore = {
   timetables: Timetable[]
@@ -15,9 +20,12 @@ const getInitialTimetable = (
 ): Timetable => {
   const firstDateTime = DateTime.fromISO(firstDate)
 
-  const timetableDate = classConfig.reduce((acc, current) => {
-    return { ...acc, [current.id]: { subject: [], note: '' } }
-  }, {})
+  const timetableDate = classConfig.reduce(
+    (acc, current) => {
+      return { ...acc, [current.id]: { subject: [], note: '' } }
+    },
+    {} as Record<TimetableKey, TimetableClass>,
+  )
 
   const timetableList = [...Array(7)].map((_, index) => {
     return {
