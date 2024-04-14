@@ -4,6 +4,7 @@ import { LoadButton } from './LoadButton'
 import { SaveButton } from './SaveButton'
 import { Link } from 'react-router-dom'
 import { useConfigStore } from '../../stores/configs'
+import { ClassCount } from './ClassCount'
 
 export const Dashboard = () => {
   const [startDate, setStartDate] = useState('')
@@ -32,6 +33,7 @@ export const Dashboard = () => {
         作成
       </button>
       <WeekTable />
+      <ClassCount />
       <SaveButton />
     </>
   )
