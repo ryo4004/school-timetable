@@ -1,4 +1,4 @@
-import type { DateTime } from 'luxon'
+import { DateTime } from 'luxon'
 
 export const WEEKDAYS = ['月', '火', '水', '木', '金', '土', '日'] as const
 
@@ -15,3 +15,8 @@ export const getWeekDay = (dateTime: DateTime) => {
 export const getWeekNumber = (weekday: Weekday) => {
   return WEEKDAYS.findIndex((w) => w === weekday)
 }
+
+type ISOString = string
+
+export const isMonday = (date: ISOString) =>
+  getWeek(DateTime.fromISO(date)) === 0

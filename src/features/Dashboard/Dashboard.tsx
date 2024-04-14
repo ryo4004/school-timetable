@@ -5,8 +5,21 @@ import { SaveButton } from './SaveButton'
 import { Link } from 'react-router-dom'
 import { useConfigStore } from '../../stores/configs'
 import { ClassCount } from './ClassCount'
+import { isMonday } from '../../utilities/getWeekDay'
 
 export const Dashboard = () => {
+  return (
+    <>
+      <h2>週案くん</h2>
+      <CreateTimeTable />
+      <WeekTable />
+      <ClassCount />
+      <SaveButton />
+    </>
+  )
+}
+
+const CreateTimeTable = () => {
   const [startDate, setStartDate] = useState('')
   const { timetables, createTimetable } = useTimetableStore()
   const { config } = useConfigStore()
@@ -21,21 +34,20 @@ export const Dashboard = () => {
     createTimetable(startDate, config.classes, config.schedule)
   }
 
+  const isDisabled = !startDate || !isMonday(startDate)
+
   return (
-    <>
-      <h2>Timetable</h2>
+    <div>
       <input
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
       />
-      <button onClick={onCreate} disabled={!startDate}>
+      <button onClick={onCreate} disabled={isDisabled}>
         作成
       </button>
-      <WeekTable />
-      <ClassCount />
-      <SaveButton />
-    </>
+      {startDate && !isMonday(startDate) && <div>月曜日を選んでください</div>}
+    </div>
   )
 }
 
@@ -53,7 +65,7 @@ const WeekTable = () => {
 
   return (
     <>
-      <details>
+      <details open={true}>
         <summary>週一覧</summary>
         {timetables.map((weekTimetable) => {
           return (
