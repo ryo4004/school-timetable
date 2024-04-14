@@ -6,7 +6,7 @@ import { type Timetable, type TimetableConfig } from '../../types'
 
 export type SaveTimetable = {
   version: string
-  timetable: Timetable
+  timetables: Timetable[]
   config: TimetableConfig
 }
 

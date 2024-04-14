@@ -30,7 +30,7 @@ export const LoadButton = () => {
               try {
                 const json = JSON.parse(reader.result)
                 if (isSaveTimetable(json) && json.version === '0.0.1') {
-                  loadTimetable(json.timetable)
+                  loadTimetable(json.timetables)
                   loadConfig(json.config)
                 }
               } catch (error) {

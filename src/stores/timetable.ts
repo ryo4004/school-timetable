@@ -18,7 +18,7 @@ type TimetableStore = {
     schedule: DateSchedule[],
   ) => void
   updateTimetables: (newTimetables: Timetable[]) => void
-  loadTimetable: (timetable: Timetable) => void
+  loadTimetable: (timetables: Timetable[]) => void
 }
 
 const getInitialTimetable = (
@@ -78,10 +78,10 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
       timetables: newTimetables,
     }))
   },
-  loadTimetable: (timetable) => {
+  loadTimetable: (timetables) => {
     set((state) => ({
       ...state,
-      timetable,
+      timetables,
     }))
   },
 }))
