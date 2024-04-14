@@ -7,11 +7,12 @@ import { Input } from '../../components/Form/Input'
 import { Text } from '../../components/Layout/Text'
 import { InputGroup } from '../../components/Form/InputGroup'
 import { InputRightAddon } from '../../components/Form/InputRightAddon'
-import { Button } from '../../components/Form/Button'
+import { Button, IconButton } from '../../components/Form/Button'
 import { Select } from '../../components/Form/Select'
 import { InputLeftAddon } from '../../components/Form/InputLeftAddon'
 import { Flex } from '../../components/Layout/Flex'
 import { Tag, TagCloseButton } from '../../components/Form/Tag'
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
 export const ClassesSettings = () => {
   const [classesInput, setClassesInput] = useState('')
@@ -62,6 +63,37 @@ export const ClassesSettings = () => {
       {config.classes.map((classItem, index) => {
         return (
           <Flex key={classItem.id} alignItems="center" marginY="8px">
+            <IconButton
+              onClick={() => {
+                const newClasses = replaceElements(
+                  config.classes,
+                  index - 1,
+                  index,
+                )
+                updateClasses(newClasses)
+              }}
+              variant="outline"
+              size="sm"
+              aria-label="ChevronUpIcon"
+              icon={<ChevronUpIcon />}
+              isDisabled={index === 0}
+            />
+            <IconButton
+              onClick={() => {
+                const newClasses = replaceElements(
+                  config.classes,
+                  index + 1,
+                  index,
+                )
+                updateClasses(newClasses)
+              }}
+              marginX="8px"
+              variant="outline"
+              size="sm"
+              aria-label="ChevronDownIcon"
+              icon={<ChevronDownIcon />}
+              isDisabled={index === config.classes.length - 1}
+            />
             <Tag
               borderLeft="0"
               variant="outline"
@@ -85,35 +117,6 @@ export const ClassesSettings = () => {
                 }}
               />
             </Tag>
-
-            {index > 0 && (
-              <Button
-                onClick={() => {
-                  const newClasses = replaceElements(
-                    config.classes,
-                    index - 1,
-                    index,
-                  )
-                  updateClasses(newClasses)
-                }}
-              >
-                上へ
-              </Button>
-            )}
-            {index < config.classes.length - 1 && (
-              <Button
-                onClick={() => {
-                  const newClasses = replaceElements(
-                    config.classes,
-                    index + 1,
-                    index,
-                  )
-                  updateClasses(newClasses)
-                }}
-              >
-                下へ
-              </Button>
-            )}
           </Flex>
         )
       })}
