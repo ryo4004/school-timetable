@@ -15,17 +15,17 @@ export type ConfigStore = {
   loadConfig: (config: TimetableConfig) => void
 }
 
-const getInitialTimetableConfig = () => {
+const getInitialTimetableConfig = (): ClassConfig[] => {
   return [
-    { id: getUniqueId(), name: '' },
-    { id: getUniqueId(), name: '1' },
-    { id: getUniqueId(), name: '2' },
-    { id: getUniqueId(), name: '' },
-    { id: getUniqueId(), name: '3' },
-    { id: getUniqueId(), name: '4' },
-    { id: getUniqueId(), name: '' },
-    { id: getUniqueId(), name: '5' },
-    { id: getUniqueId(), name: '6' },
+    { id: getUniqueId(), name: '', type: 'other' },
+    { id: getUniqueId(), name: '1', type: 'class' },
+    { id: getUniqueId(), name: '2', type: 'class' },
+    { id: getUniqueId(), name: '', type: 'break' },
+    { id: getUniqueId(), name: '3', type: 'class' },
+    { id: getUniqueId(), name: '4', type: 'class' },
+    { id: getUniqueId(), name: '', type: 'lunch' },
+    { id: getUniqueId(), name: '5', type: 'class' },
+    { id: getUniqueId(), name: '6', type: 'class' },
   ]
 }
 
