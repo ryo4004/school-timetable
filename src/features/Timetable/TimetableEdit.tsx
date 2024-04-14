@@ -117,6 +117,11 @@ const ClassItem = ({
     <div>
       <div>{classConfig.name}</div>
       <div>
+        <div>プレビュー</div>
+        <div>{classItem.subject.join(', ')}</div>
+        <div>{classItem.note}</div>
+      </div>
+      <div>
         <SubjectSelect
           value={classItem.subject[0] ?? ''}
           onChange={(e) => {
@@ -164,7 +169,6 @@ const ClassItem = ({
         />
         <label>分割</label>
       </div>
-      <div>{classItem.note}</div>
       <div>
         <input
           value={noteInput}
