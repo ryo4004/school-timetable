@@ -6,6 +6,20 @@ import { useConfigStore } from '../../stores/configs'
 import { ClassCount } from './ClassCount'
 import { isMonday } from '../../utilities/getWeekDay'
 import { Input } from '../../components/Form/Input'
+import { Text } from '../../components/Layout/Text'
+import { InputGroup } from '../../components/Form/InputGroup'
+import { InputRightAddon } from '../../components/Form/InputRightAddon'
+import { Button } from '../../components/Form/Button'
+import { Alert, AlertIcon } from '../../components/Layout/Alert'
+import { replaceToSlash } from '../../utilities/formatDate'
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+} from '../../components/Layout/Accordion'
+import { Box } from '../../components/Layout/Box'
 
 export const Dashboard = () => {
   return (
@@ -35,47 +49,78 @@ const CreateTimeTable = () => {
   const isDisabled = !startDate || !isMonday(startDate)
 
   return (
-    <div>
-      <h2>新しい週案ページを作成</h2>
-      <Input
-        type="date"
-        value={startDate}
-        onChange={(e) => setStartDate(e.target.value)}
-      />
-      <button onClick={onCreate} disabled={isDisabled}>
-        作成
-      </button>
-      {startDate && !isMonday(startDate) && <div>月曜日を選んでください</div>}
-    </div>
+    <Box>
+      <Text as="h2" marginY="16px" fontWeight="bold" fontSize="20px">
+        ダッシュボード
+      </Text>
+      <Text as="h3" marginTop="16px">
+        新しい週案ページを作成
+      </Text>
+      <InputGroup>
+        <Input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          borderRadius="0.375rem 0 0 0.375rem"
+        />
+        <InputRightAddon padding="0">
+          <Button
+            onClick={onCreate}
+            isDisabled={isDisabled}
+            borderRadius="0 0.315rem 0.315rem 0"
+          >
+            作成
+          </Button>
+        </InputRightAddon>
+      </InputGroup>
+      {startDate && !isMonday(startDate) && (
+        <Alert status="error" marginY="8px">
+          <AlertIcon />
+          月曜日を選んでください
+        </Alert>
+      )}
+    </Box>
   )
 }
 
 const WeekTable = () => {
   const { timetables } = useTimetableStore()
 
-  if (timetables.length === 0) {
-    return (
-      <>
-        時間割の作成が必要です
-        <LoadButton />
-      </>
-    )
-  }
-
   return (
     <>
-      <details open={true}>
-        <summary>週一覧</summary>
-        {timetables.map((weekTimetable) => {
-          return (
-            <div key={weekTimetable.firstDate}>
-              <Link to={`/${weekTimetable.firstDate.replace(/-/g, '')}`}>
-                {weekTimetable.firstDate}
-              </Link>
-            </div>
-          )
-        })}
-      </details>
+      <Text as="h3" marginTop="16px">
+        週案一覧
+      </Text>
+      {timetables.length === 0 && (
+        <>
+          週案ページの作成が必要です
+          <LoadButton />
+        </>
+      )}
+      {timetables.length !== 0 && (
+        <Accordion allowToggle={true} defaultIndex={[0]} marginY="16px">
+          <AccordionItem>
+            <AccordionButton padding="8px 16px">
+              作成済みの週案
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel padding="0">
+              {timetables.map((weekTimetable) => {
+                return (
+                  <Link
+                    key={weekTimetable.firstDate}
+                    to={`/${weekTimetable.firstDate.replace(/-/g, '')}`}
+                  >
+                    <Text padding="8px 16px" _hover={{ background: '#ccc' }}>
+                      {replaceToSlash(weekTimetable.firstDate)}
+                    </Text>
+                  </Link>
+                )
+              })}
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      )}
     </>
   )
 }
