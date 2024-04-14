@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useConfigStore } from '../../stores/configs'
 import { getUniqueId } from '../../utilities/getUniqueId'
 import { CLASS_TYPES, CLASS_TYPE_ORDER } from '../../types'
+import { replaceElements } from '../../utilities/replaceElements'
 
 export const ClassesSettings = () => {
   const [classesInput, setClassesInput] = useState('')
@@ -35,11 +36,48 @@ export const ClassesSettings = () => {
         追加
       </button>
       <div>
-        {config.classes.map((classItem) => {
+        {config.classes.map((classItem, index) => {
           return (
             <div key={classItem.id}>
               {classItem.name ? classItem.name : '名前なし'}
               {CLASS_TYPES[classItem.type]}
+              {index > 0 && (
+                <button
+                  onClick={() => {
+                    const newClasses = replaceElements(
+                      config.classes,
+                      index - 1,
+                      index,
+                    )
+                    updateClasses(newClasses)
+                  }}
+                >
+                  上へ
+                </button>
+              )}
+              {index < config.classes.length - 1 && (
+                <button
+                  onClick={() => {
+                    const newClasses = replaceElements(
+                      config.classes,
+                      index + 1,
+                      index,
+                    )
+                    updateClasses(newClasses)
+                  }}
+                >
+                  下へ
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  updateClasses(
+                    config.classes.filter((item) => item.id !== classItem.id),
+                  )
+                }}
+              >
+                削除
+              </button>
             </div>
           )
         })}
