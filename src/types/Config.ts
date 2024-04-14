@@ -1,6 +1,13 @@
 import { TimetableKey } from './Timetable'
 
-const CLASS_TYPES = {
+export const CLASS_TYPE_ORDER = ['class', 'break', 'lunch', 'other'] as const
+
+type ClassTypeKeys = (typeof CLASS_TYPE_ORDER)[number]
+
+export const CLASS_TYPES: Record<
+  ClassTypeKeys,
+  '授業' | '休憩' | '昼休み' | 'その他'
+> = {
   class: '授業',
   break: '休憩',
   lunch: '昼休み',

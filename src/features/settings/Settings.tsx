@@ -1,3 +1,4 @@
+import { ClassesSettings } from './ClassesSettings'
 import { SubjectSettings } from './SubjectSettings'
 import { TimetableSettings } from './TimetableSettings'
 
@@ -7,6 +8,7 @@ export const Settings = () => {
       <h2>settings</h2>
       <TimetableSettings />
       <SubjectSettings />
+      <ClassesSettings />
     </>
   )
 }

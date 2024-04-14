@@ -1,17 +1,18 @@
 import { create } from 'zustand'
-import { v4 as uuidv4 } from 'uuid'
 import type {
   ClassConfig,
   TimetableConfig,
   TimetableKey,
   DateSchedule,
 } from '../types'
+import { getUniqueId } from '../utilities/getUniqueId'
 
 export type ConfigStore = {
   config: TimetableConfig
   updateTimetable: (classes: ClassConfig[]) => void
   updateSchedule: (index: number, dateSchedule: DateSchedule) => void
   updateSubjects: (subjects: string[]) => void
+  updateClasses: (classes: ClassConfig[]) => void
   loadConfig: (config: TimetableConfig) => void
 }
 
@@ -27,10 +28,6 @@ const getInitialTimetableConfig = (): ClassConfig[] => {
     { id: getUniqueId(), name: '5', type: 'class' },
     { id: getUniqueId(), name: '6', type: 'class' },
   ]
-}
-
-const getUniqueId = () => {
-  return uuidv4().split('-')[0]
 }
 
 const getInitialConfig = (): TimetableConfig => {
@@ -77,6 +74,15 @@ export const useConfigStore = create<ConfigStore>((set) => ({
       config: {
         ...state.config,
         subjects,
+      },
+    }))
+  },
+  updateClasses: (classes) => {
+    set((state) => ({
+      ...state,
+      config: {
+        ...state.config,
+        classes,
       },
     }))
   },
