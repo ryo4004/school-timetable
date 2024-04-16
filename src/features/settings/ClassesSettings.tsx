@@ -14,6 +14,7 @@ import { Flex } from '../../components/Layout/Flex'
 import { Tag, TagCloseButton } from '../../components/Form/Tag'
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { classTypeColorSelector } from '../../utilities/classTypeColorSelector'
+import { Box } from '../../components/Layout/Box'
 
 export const ClassesSettings = () => {
   const [classesInput, setClassesInput] = useState('')
@@ -22,7 +23,7 @@ export const ClassesSettings = () => {
   const { config, updateClasses } = useConfigStore()
 
   return (
-    <>
+    <Box marginX="8px">
       <Text as="h3" marginTop="16px">
         授業の設定
       </Text>
@@ -121,6 +122,6 @@ export const ClassesSettings = () => {
           </Flex>
         )
       })}
-    </>
+    </Box>
   )
 }

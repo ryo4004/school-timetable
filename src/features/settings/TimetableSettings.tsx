@@ -12,12 +12,13 @@ import {
   Tr,
 } from '../../components/Table/Table'
 import { Flex } from '../../components/Layout/Flex'
+import { Box } from '../../components/Layout/Box'
 
 export const TimetableSettings = () => {
   const { config } = useConfigStore()
 
   return (
-    <>
+    <Box marginX="8px">
       <Text as="h3" marginTop="16px">
         時間割の設定
       </Text>
@@ -55,7 +56,7 @@ export const TimetableSettings = () => {
           </Tbody>
         </Table>
       </TableContainer>
-    </>
+    </Box>
   )
 }
 

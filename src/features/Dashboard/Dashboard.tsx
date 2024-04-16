@@ -51,7 +51,7 @@ const CreateTimeTable = () => {
   const isDisabled = !startDate || !isMonday(startDate)
 
   return (
-    <Box>
+    <Box marginX="8px">
       <Text as="h2" marginY="16px" fontWeight="bold" fontSize="20px">
         ダッシュボード
       </Text>
@@ -96,7 +96,7 @@ const WeekTable = () => {
   }
 
   return (
-    <>
+    <Box marginX="8px">
       <Text as="h3" marginTop="16px">
         週案一覧
       </Text>
@@ -143,6 +143,6 @@ const WeekTable = () => {
           </AccordionItem>
         </Accordion>
       )}
-    </>
+    </Box>
   )
 }

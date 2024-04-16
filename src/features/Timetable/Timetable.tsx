@@ -44,9 +44,11 @@ export const Timetable = () => {
   return (
     <Box>
       <NoPrint>
-        <Text as="h2">週案{weekIndex + 1}の編集</Text>
+        <Text as="h2" marginX="8px">
+          週案{weekIndex + 1}の編集
+        </Text>
       </NoPrint>
-      <TableContainer>
+      <TableContainer marginX="8px">
         <Flex alignItems="center">
           <Text padding="8px" fontSize="24px" fontWeight="bold">
             週案（{weekIndex + 1}週）

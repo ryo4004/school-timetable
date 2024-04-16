@@ -7,7 +7,13 @@ import { TimetableSettings } from './TimetableSettings'
 export const Settings = () => {
   return (
     <Box>
-      <Text as="h2" marginY="16px" fontWeight="bold" fontSize="20px">
+      <Text
+        as="h2"
+        marginX="8px"
+        marginY="16px"
+        fontWeight="bold"
+        fontSize="20px"
+      >
         設定
       </Text>
       <TimetableSettings />

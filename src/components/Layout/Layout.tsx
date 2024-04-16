@@ -12,7 +12,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <Box>
       <Header />
-      <Box marginX="8px">{children}</Box>
+      <Box>{children}</Box>
     </Box>
   )
 }

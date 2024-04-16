@@ -94,7 +94,7 @@ const WeekNote = ({
   }
 
   return (
-    <Box marginY="8px">
+    <Box margin="8px">
       <Text>今週の目標</Text>
       <InputGroup marginY="8px">
         <Input
@@ -122,7 +122,7 @@ const ShowSaturday = ({
   const { updateTimetableShowSaturday } = useTimetableStore()
 
   return (
-    <Box marginY="8px">
+    <Box margin="8px">
       <Checkbox
         isChecked={weekTimetable.showSaturday}
         onChange={(e) =>
@@ -145,7 +145,7 @@ const ShowSunday = ({
   const { updateTimetableShowSunday } = useTimetableStore()
 
   return (
-    <Box marginY="8px">
+    <Box margin="8px">
       <Checkbox
         isChecked={weekTimetable.showSunday}
         onChange={(e) => updateTimetableShowSunday(weekIndex, e.target.checked)}
@@ -250,7 +250,7 @@ const ClassItem = ({
   }
 
   return (
-    <Box>
+    <Box marginX="8px">
       <Box paddingY="8px">
         <Tag
           variant="outline"

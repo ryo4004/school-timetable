@@ -22,7 +22,7 @@ export const ClassCount = () => {
   }, countTable)
 
   return (
-    <Box>
+    <Box marginX="8px">
       <Text as="h3" marginTop="16px">
         授業数カウント
       </Text>

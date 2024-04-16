@@ -15,7 +15,7 @@ export const SubjectSettings = () => {
   const { config, updateSubjects } = useConfigStore()
 
   return (
-    <Box>
+    <Box marginX="8px">
       <Text as="h3" marginTop="16px">
         教科の設定
       </Text>
