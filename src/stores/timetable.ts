@@ -64,13 +64,21 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
     classes: ClassConfig[],
     schedule: DateSchedule[],
   ) => {
-    set((state) => ({
-      ...state,
-      timetables: [
+    set((state) => {
+      const newTimetables = [
         ...state.timetables,
         getInitialTimetable(firstDate, classes, schedule),
-      ],
-    }))
+      ].sort((a, b) => {
+        return (
+          DateTime.fromISO(a.firstDate).toMillis() -
+          DateTime.fromISO(b.firstDate).toMillis()
+        )
+      })
+      return {
+        ...state,
+        timetables: newTimetables,
+      }
+    })
   },
   updateTimetables: (newTimetables) => {
     set((state) => ({
