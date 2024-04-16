@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useConfigStore } from '../../stores/configs'
 import { getUniqueId } from '../../utilities/getUniqueId'
-import { CLASS_TYPES, CLASS_TYPE_ORDER, ClassTypeKeys } from '../../types'
+import { CLASS_TYPES, CLASS_TYPE_ORDER } from '../../types'
 import { replaceElements } from '../../utilities/replaceElements'
 import { Input } from '../../components/Form/Input'
 import { Text } from '../../components/Layout/Text'
@@ -13,6 +13,7 @@ import { InputLeftAddon } from '../../components/Form/InputLeftAddon'
 import { Flex } from '../../components/Layout/Flex'
 import { Tag, TagCloseButton } from '../../components/Form/Tag'
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { classTypeColorSelector } from '../../utilities/classTypeColorSelector'
 
 export const ClassesSettings = () => {
   const [classesInput, setClassesInput] = useState('')
@@ -122,21 +123,4 @@ export const ClassesSettings = () => {
       })}
     </>
   )
-}
-
-const classTypeColorSelector = (classType: ClassTypeKeys) => {
-  switch (classType) {
-    case 'class': {
-      return 'orange'
-    }
-    case 'break': {
-      return 'teal'
-    }
-    case 'lunch': {
-      return 'cyan'
-    }
-    default: {
-      return 'gray'
-    }
-  }
 }
