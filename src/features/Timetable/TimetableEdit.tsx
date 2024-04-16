@@ -16,6 +16,7 @@ import { classTypeColorSelector } from '../../utilities/classTypeColorSelector'
 import { InputGroup } from '../../components/Form/InputGroup'
 import { InputRightAddon } from '../../components/Form/InputRightAddon'
 import { Button } from '../../components/Form/Button'
+import { NoPrint } from '../../components/Layout/NoPrint'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -27,7 +28,7 @@ export const TimetableEdit = ({
   const { config } = useConfigStore()
 
   return (
-    <>
+    <NoPrint>
       {weekTimetable.list.map((timetable) => {
         const dateTime = DateTime.fromISO(timetable.date)
         return (
@@ -55,7 +56,7 @@ export const TimetableEdit = ({
           </Box>
         )
       })}
-    </>
+    </NoPrint>
   )
 }
 

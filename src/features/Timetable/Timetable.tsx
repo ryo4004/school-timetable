@@ -18,6 +18,7 @@ import {
   Tr,
 } from '../../components/Table/Table'
 import { Flex } from '../../components/Layout/Flex'
+import { NoPrint } from '../../components/Layout/NoPrint'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -41,7 +42,9 @@ export const Timetable = () => {
 
   return (
     <Box>
-      <Text as="h2">週案{weekIndex + 1}の編集</Text>
+      <NoPrint>
+        <Text as="h2">週案{weekIndex + 1}の編集</Text>
+      </NoPrint>
       <TableContainer>
         <Table width="100%" sx={{ tableLayout: 'auto' }}>
           <Thead>
