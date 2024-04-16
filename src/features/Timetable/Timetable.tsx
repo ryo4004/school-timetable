@@ -38,7 +38,7 @@ export const Timetable = () => {
   }, [timetables, startDate])
 
   if (!weekTimetable) {
-    return <Navigate to="/" />
+    return <Navigate to="/dashboard" />
   }
 
   return (

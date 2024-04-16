@@ -34,13 +34,13 @@ const Header = () => {
           alignItems="center"
           borderBottom="1px solid #ccc"
         >
-          <Link to="/">
+          <Link to="/dashboard">
             <Text marginX="8px" fontWeight="bold">
               週案くん
             </Text>
           </Link>
           <Flex flex={2}>
-            <Link to="/">
+            <Link to="/dashboard">
               <Text paddingX="8px" _hover={{ background: '#ccc' }}>
                 ダッシュボード
               </Text>
