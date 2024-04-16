@@ -71,7 +71,7 @@ const countClassesEachDate = (
   return timetable.list.reduce((dateAccumulator, timetableDate) => {
     const classesList = classConfigs.map((classConfig) => {
       const target = timetableDate.classes[classConfig.id]
-      return target.subject
+      return target?.subject ?? []
     })
 
     const countup = classesList.reduce((accumulator, classes) => {
