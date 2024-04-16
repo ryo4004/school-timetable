@@ -7,9 +7,11 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Th,
   Thead,
   Tr,
 } from '../../components/Table/Table'
+import { Flex } from '../../components/Layout/Flex'
 
 export const TimetableSettings = () => {
   const { config } = useConfigStore()
@@ -23,18 +25,24 @@ export const TimetableSettings = () => {
         <Table size="sm">
           <Thead>
             <Tr>
-              <Td minWidth="auto"></Td>
+              <Th></Th>
               {WEEKDAYS.map((weekday) => (
-                <Td key={weekday} textAlign="center">
+                <Th key={weekday} textAlign="center">
                   <Text paddingY="8px">{weekday}</Text>
-                </Td>
+                </Th>
               ))}
             </Tr>
           </Thead>
           <Tbody>
             {config.classes.map((classItem) => (
               <Tr key={classItem.id}>
-                <Td minWidth="20px">{classItem.name}</Td>
+                <Th minWidth="20px">
+                  <Flex alignItems="center" justifyContent="center">
+                    <Text fontSize="16px" paddingX="8px">
+                      {classItem.name}
+                    </Text>
+                  </Flex>
+                </Th>
                 {WEEKDAYS.map((weekday) => {
                   return (
                     <Td key={weekday}>
