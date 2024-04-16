@@ -3,6 +3,7 @@ import { Timetable } from '../features/Timetable'
 import { Settings } from '../features/settings'
 import { Layout } from '../components/Layout/Layout'
 import { Dashboard } from '../features/Dashboard'
+import { Guide } from '../features/Guide/Guide'
 
 export const AppRoutes = () => {
   const element = useRoutes(routes)
@@ -18,7 +19,7 @@ const routes: RouteObject[] = [
       </Layout>
     ),
     children: [
-      { path: '/', element: <Dashboard /> },
+      { path: '/', element: <Guide /> },
       { path: '/dashboard', element: <Dashboard /> },
       { path: '/:key', element: <Timetable /> },
       {
