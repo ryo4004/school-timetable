@@ -17,6 +17,7 @@ import { InputGroup } from '../../components/Form/InputGroup'
 import { InputRightAddon } from '../../components/Form/InputRightAddon'
 import { Button } from '../../components/Form/Button'
 import { NoPrint } from '../../components/Layout/NoPrint'
+import { HEADER_HEIGHT } from '../../components/Layout/Layout'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -35,7 +36,7 @@ export const TimetableEdit = ({
           <Box key={timetable.date} marginTop="16px">
             <Text
               position="sticky"
-              top="0"
+              top={HEADER_HEIGHT}
               padding="8px"
               background="#eee"
               textAlign="center"
