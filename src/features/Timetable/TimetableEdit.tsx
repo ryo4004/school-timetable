@@ -18,6 +18,7 @@ import { InputRightAddon } from '../../components/Form/InputRightAddon'
 import { Button } from '../../components/Form/Button'
 import { NoPrint } from '../../components/Layout/NoPrint'
 import { HEADER_HEIGHT } from '../../components/Layout/Layout'
+import { ChevronUpIcon } from '@chakra-ui/icons'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -33,17 +34,29 @@ export const TimetableEdit = ({
       {weekTimetable.list.map((timetable) => {
         const dateTime = DateTime.fromISO(timetable.date)
         return (
-          <Box key={timetable.date} marginTop="16px">
-            <Text
+          <Box
+            key={timetable.date}
+            marginTop="16px"
+            id={dateTime.toFormat('M/d')}
+          >
+            <Flex
               position="sticky"
               top={HEADER_HEIGHT}
+              width="100%"
               padding="8px"
               background="#eee"
               textAlign="center"
               zIndex={1}
+              onClick={() => window.scrollTo({ top: 0 })}
+              cursor="pointer"
             >
-              {dateTime.toFormat('M/d')}({getWeekDay(dateTime)})
-            </Text>
+              <Text>
+                {dateTime.toFormat('M/d')}({getWeekDay(dateTime)})
+              </Text>
+              <Box marginLeft="auto">
+                <ChevronUpIcon boxSize={5} />
+              </Box>
+            </Flex>
             {config.classes.map((classConfig) => {
               return (
                 <ClassItem
