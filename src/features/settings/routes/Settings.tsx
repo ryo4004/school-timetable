@@ -1,8 +1,8 @@
-import { Box } from '../../components/Layout/Box'
-import { Text } from '../../components/Layout/Text'
-import { ClassesSettings } from './ClassesSettings'
-import { SubjectSettings } from './SubjectSettings'
-import { TimetableSettings } from './TimetableSettings'
+import { Box } from '../../../components/Layout/Box'
+import { Text } from '../../../components/Layout/Text'
+import { ClassesSettings } from '../components/ClassesSettings'
+import { SubjectSettings } from '../components/SubjectSettings'
+import { TimetableSettings } from '../components/TimetableSettings'
 
 export const Settings = () => {
   return (

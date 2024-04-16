@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { useConfigStore } from '../../stores/configs'
-import { Input } from '../../components/Form/Input'
-import { Text } from '../../components/Layout/Text'
-import { Box } from '../../components/Layout/Box'
-import { InputGroup } from '../../components/Form/InputGroup'
-import { InputRightAddon } from '../../components/Form/InputRightAddon'
-import { Button } from '../../components/Form/Button'
-import { Tag, TagCloseButton } from '../../components/Form/Tag'
-import { Flex } from '../../components/Layout/Flex'
+import { useConfigStore } from '../../../stores/configs'
+import { Input } from '../../../components/Form/Input'
+import { Text } from '../../../components/Layout/Text'
+import { Box } from '../../../components/Layout/Box'
+import { InputGroup } from '../../../components/Form/InputGroup'
+import { InputRightAddon } from '../../../components/Form/InputRightAddon'
+import { Button } from '../../../components/Form/Button'
+import { Tag, TagCloseButton } from '../../../components/Form/Tag'
+import { Flex } from '../../../components/Layout/Flex'
 
 export const SubjectSettings = () => {
   const [subjectInput, setSubjectInput] = useState('')

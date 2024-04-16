@@ -1,7 +1,7 @@
-import { WEEKDAYS, Weekday, getWeekNumber } from '../../utilities/getWeekDay'
-import { SubjectSelect } from '../Timetable/SubjectSelect'
-import { useConfigStore } from '../../stores/configs'
-import { Text } from '../../components/Layout/Text'
+import { WEEKDAYS, Weekday, getWeekNumber } from '../../../utilities/getWeekDay'
+import { SubjectSelect } from '../../Timetable/SubjectSelect'
+import { useConfigStore } from '../../../stores/configs'
+import { Text } from '../../../components/Layout/Text'
 import {
   Table,
   TableContainer,
@@ -10,9 +10,9 @@ import {
   Th,
   Thead,
   Tr,
-} from '../../components/Table/Table'
-import { Flex } from '../../components/Layout/Flex'
-import { Box } from '../../components/Layout/Box'
+} from '../../../components/Table/Table'
+import { Flex } from '../../../components/Layout/Flex'
+import { Box } from '../../../components/Layout/Box'
 
 export const TimetableSettings = () => {
   const { config } = useConfigStore()
