@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
-import { useTimetableStore } from '../../stores/timetable'
+import { useTimetableStore } from '../../../stores/timetable'
 import { DateTime } from 'luxon'
-import { getWeekDay, isSaturday, isSunday } from '../../utilities/getWeekDay'
-import { ClassConfig, TimetableDate } from '../../types'
-import { useConfigStore } from '../../stores/configs'
+import { getWeekDay, isSaturday, isSunday } from '../../../utilities/getWeekDay'
+import { ClassConfig, TimetableDate } from '../../../types'
+import { useConfigStore } from '../../../stores/configs'
 import { TimetableEdit } from './TimetableEdit'
-import { Box } from '../../components/Layout/Box'
-import { Text } from '../../components/Layout/Text'
+import { Box } from '../../../components/Layout/Box'
+import { Text } from '../../../components/Layout/Text'
 import {
   Table,
   TableContainer,
@@ -16,12 +16,12 @@ import {
   Th,
   Thead,
   Tr,
-} from '../../components/Table/Table'
-import { Flex } from '../../components/Layout/Flex'
-import { NoPrint } from '../../components/Layout/NoPrint'
-import { isClass } from '../../utilities/isClass'
+} from '../../../components/Table/Table'
+import { Flex } from '../../../components/Layout/Flex'
+import { NoPrint } from '../../../components/Layout/NoPrint'
+import { isClass } from '../../../utilities/isClass'
 
-export const Timetable = () => {
+export const MainTimetable = () => {
   const { key } = useParams<{ key: string }>()
   const { timetables } = useTimetableStore()
   const { config } = useConfigStore()

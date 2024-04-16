@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react'
-import { useConfigStore } from '../../stores/configs'
-import { Select, type SelectProps } from '../../components/Form/Select'
+import { useConfigStore } from '../../../stores/configs'
+import { Select, type SelectProps } from '../../../components/Form/Select'
 
 export const SubjectSelect = ({
   value,

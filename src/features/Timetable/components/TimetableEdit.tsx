@@ -1,25 +1,30 @@
 import { DateTime } from 'luxon'
-import { CLASS_TYPES, ClassConfig, Timetable, TimetableDate } from '../../types'
-import { getWeekDay } from '../../utilities/getWeekDay'
-import { useConfigStore } from '../../stores/configs'
-import { useTimetableStore } from '../../stores/timetable'
+import {
+  CLASS_TYPES,
+  ClassConfig,
+  Timetable,
+  TimetableDate,
+} from '../../../types'
+import { getWeekDay } from '../../../utilities/getWeekDay'
+import { useConfigStore } from '../../../stores/configs'
+import { useTimetableStore } from '../../../stores/timetable'
 import { SubjectSelect } from './SubjectSelect'
 import { type ChangeEvent, useState } from 'react'
-import { truthy } from '../../utilities/truthy'
-import { Input } from '../../components/Form/Input'
-import { Checkbox } from '../../components/Form/Checkbox'
-import { Flex } from '../../components/Layout/Flex'
-import { Text } from '../../components/Layout/Text'
-import { Box } from '../../components/Layout/Box'
-import { Tag } from '../../components/Form/Tag'
-import { classTypeColorSelector } from '../../utilities/classTypeColorSelector'
-import { InputGroup } from '../../components/Form/InputGroup'
-import { InputRightAddon } from '../../components/Form/InputRightAddon'
-import { Button } from '../../components/Form/Button'
-import { NoPrint } from '../../components/Layout/NoPrint'
-import { HEADER_HEIGHT } from '../../components/Layout/Layout'
+import { truthy } from '../../../utilities/truthy'
+import { Input } from '../../../components/Form/Input'
+import { Checkbox } from '../../../components/Form/Checkbox'
+import { Flex } from '../../../components/Layout/Flex'
+import { Text } from '../../../components/Layout/Text'
+import { Box } from '../../../components/Layout/Box'
+import { Tag } from '../../../components/Form/Tag'
+import { classTypeColorSelector } from '../../../utilities/classTypeColorSelector'
+import { InputGroup } from '../../../components/Form/InputGroup'
+import { InputRightAddon } from '../../../components/Form/InputRightAddon'
+import { Button } from '../../../components/Form/Button'
+import { NoPrint } from '../../../components/Layout/NoPrint'
+import { HEADER_HEIGHT } from '../../../components/Layout/Layout'
 import { ChevronUpIcon } from '@chakra-ui/icons'
-import { isClass } from '../../utilities/isClass'
+import { isClass } from '../../../utilities/isClass'
 
 export const TimetableEdit = ({
   weekTimetable,

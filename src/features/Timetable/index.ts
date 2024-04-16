@@ -1,1 +1,1 @@
-export * from './Timetable'
+export * from './routes'
