@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useTimetableStore } from '../../stores/timetable'
-import { type SaveTimetable } from '../../components/Layout/SaveButton'
-import { useConfigStore } from '../../stores/configs'
-import { Input } from '../../components/Form/Input'
+import { useTimetableStore } from '../../../stores/timetable'
+import { type SaveTimetable } from '../../../components/Layout/SaveButton'
+import { useConfigStore } from '../../../stores/configs'
+import { Input } from '../../../components/Form/Input'
 
 export const LoadButton = () => {
   const [fileName, setFileName] = useState('')

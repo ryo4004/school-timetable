@@ -1,10 +1,10 @@
-import { Box } from '../../components/Layout/Box'
-import { Chip } from '../../components/Layout/Chip'
-import { Flex } from '../../components/Layout/Flex'
-import { Text } from '../../components/Layout/Text'
-import { useConfigStore } from '../../stores/configs'
-import { useTimetableStore } from '../../stores/timetable'
-import { ClassConfig, Timetable } from '../../types'
+import { Box } from '../../../components/Layout/Box'
+import { Chip } from '../../../components/Layout/Chip'
+import { Flex } from '../../../components/Layout/Flex'
+import { Text } from '../../../components/Layout/Text'
+import { useConfigStore } from '../../../stores/configs'
+import { useTimetableStore } from '../../../stores/timetable'
+import { ClassConfig, Timetable } from '../../../types'
 
 export const ClassCount = () => {
   const { config } = useConfigStore()

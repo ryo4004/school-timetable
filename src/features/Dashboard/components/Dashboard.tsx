@@ -1,39 +1,28 @@
 import { useState } from 'react'
-import { useTimetableStore } from '../../stores/timetable'
+import { useTimetableStore } from '../../../stores/timetable'
 import { LoadButton } from './LoadButton'
 import { Link } from 'react-router-dom'
-import { useConfigStore } from '../../stores/configs'
-import { ClassCount } from './ClassCount'
-import { isMonday } from '../../utilities/getWeekDay'
-import { Input } from '../../components/Form/Input'
-import { Text } from '../../components/Layout/Text'
-import { InputGroup } from '../../components/Form/InputGroup'
-import { InputRightAddon } from '../../components/Form/InputRightAddon'
-import { Button, IconButton } from '../../components/Form/Button'
-import { Alert, AlertIcon } from '../../components/Layout/Alert'
-import { replaceToSlash } from '../../utilities/formatDate'
+import { useConfigStore } from '../../../stores/configs'
+import { isMonday } from '../../../utilities/getWeekDay'
+import { Input } from '../../../components/Form/Input'
+import { Text } from '../../../components/Layout/Text'
+import { InputGroup } from '../../../components/Form/InputGroup'
+import { InputRightAddon } from '../../../components/Form/InputRightAddon'
+import { Button, IconButton } from '../../../components/Form/Button'
+import { Alert, AlertIcon } from '../../../components/Layout/Alert'
+import { replaceToSlash } from '../../../utilities/formatDate'
 import {
   Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-} from '../../components/Layout/Accordion'
-import { Box } from '../../components/Layout/Box'
-import { Flex } from '../../components/Layout/Flex'
+} from '../../../components/Layout/Accordion'
+import { Box } from '../../../components/Layout/Box'
+import { Flex } from '../../../components/Layout/Flex'
 import { CloseIcon } from '@chakra-ui/icons'
 
-export const Dashboard = () => {
-  return (
-    <>
-      <CreateTimeTable />
-      <WeekTable />
-      <ClassCount />
-    </>
-  )
-}
-
-const CreateTimeTable = () => {
+export const CreateTimeTable = () => {
   const [startDate, setStartDate] = useState('')
   const { timetables, createTimetable } = useTimetableStore()
   const { config } = useConfigStore()
@@ -85,7 +74,7 @@ const CreateTimeTable = () => {
   )
 }
 
-const WeekTable = () => {
+export const WeekTable = () => {
   const { timetables, updateTimetables } = useTimetableStore()
 
   const onClickRemoveTimetable = (firstDate: string) => () => {
