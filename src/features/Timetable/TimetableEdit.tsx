@@ -19,6 +19,7 @@ import { Button } from '../../components/Form/Button'
 import { NoPrint } from '../../components/Layout/NoPrint'
 import { HEADER_HEIGHT } from '../../components/Layout/Layout'
 import { ChevronUpIcon } from '@chakra-ui/icons'
+import { isClass } from '../../utilities/isClass'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -269,63 +270,62 @@ const ClassItem = ({
       </Box>
       <Box maxWidth="calc(100% / 7)" minWidth="80px" marginY="8px">
         <Text fontSize="11px">プレビュー</Text>
-        <Flex
-          justifyContent="space-around"
-          border="1px solid #000"
-          fontSize="14px"
-        >
-          {classItem.subject.length === 0 && <Text>-</Text>}
-          {classItem.subject.map((subject, index) => (
-            <Text key={index} whiteSpace="nowrap">
-              {subject}
-            </Text>
-          ))}
-        </Flex>
-        <Box
-          width="100%"
-          height="50px"
-          border="1px solid #000"
-          borderTop="0"
-          fontSize="12px"
-        >
+        {isClass(classConfig.type) && (
+          <Flex
+            justifyContent="space-around"
+            border="1px solid #000"
+            borderBottom="0"
+            fontSize="14px"
+          >
+            {classItem.subject.length === 0 && <Text>-</Text>}
+            {classItem.subject.map((subject, index) => (
+              <Text key={index} whiteSpace="nowrap">
+                {subject}
+              </Text>
+            ))}
+          </Flex>
+        )}
+        <Box width="100%" height="50px" border="1px solid #000" fontSize="12px">
           {classItem.note}
         </Box>
       </Box>
-      <Box>
-        <SubjectSelect
-          value={classItem.subject[0] ?? ''}
-          onChange={onChangeFirstSubject}
-          size="md"
-          marginY="8px"
-        />
-        {isDivide && (
-          <>
-            <SubjectSelect
-              value={classItem.subject[1] ?? ''}
-              onChange={onChangeSecondSubject}
-              size="md"
-              marginY="8px"
-            />
-            <SubjectSelect
-              value={classItem.subject[2] ?? ''}
-              onChange={onChangeThirdSubject}
-              size="md"
-              marginY="8px"
-            />
-          </>
-        )}
-        <Checkbox
-          isChecked={isDivide}
-          onChange={(e) => {
-            if (!e.target.checked) {
-              onUpdateSubject([classItem.subject[0]].filter(truthy))
-            }
-            setIsDivide(e.target.checked)
-          }}
-        >
-          分割
-        </Checkbox>
-      </Box>
+      {isClass(classConfig.type) && (
+        <Box>
+          <SubjectSelect
+            value={classItem.subject[0] ?? ''}
+            onChange={onChangeFirstSubject}
+            size="md"
+            marginY="8px"
+          />
+          {isDivide && (
+            <>
+              <SubjectSelect
+                value={classItem.subject[1] ?? ''}
+                onChange={onChangeSecondSubject}
+                size="md"
+                marginY="8px"
+              />
+              <SubjectSelect
+                value={classItem.subject[2] ?? ''}
+                onChange={onChangeThirdSubject}
+                size="md"
+                marginY="8px"
+              />
+            </>
+          )}
+          <Checkbox
+            isChecked={isDivide}
+            onChange={(e) => {
+              if (!e.target.checked) {
+                onUpdateSubject([classItem.subject[0]].filter(truthy))
+              }
+              setIsDivide(e.target.checked)
+            }}
+          >
+            分割
+          </Checkbox>
+        </Box>
+      )}
       <InputGroup marginY="8px">
         <Input
           value={noteInput}

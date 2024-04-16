@@ -3,7 +3,7 @@ import { Navigate, useParams } from 'react-router-dom'
 import { useTimetableStore } from '../../stores/timetable'
 import { DateTime } from 'luxon'
 import { getWeekDay, isSaturday, isSunday } from '../../utilities/getWeekDay'
-import { TimetableDate } from '../../types'
+import { ClassConfig, TimetableDate } from '../../types'
 import { useConfigStore } from '../../stores/configs'
 import { TimetableEdit } from './TimetableEdit'
 import { Box } from '../../components/Layout/Box'
@@ -19,6 +19,7 @@ import {
 } from '../../components/Table/Table'
 import { Flex } from '../../components/Layout/Flex'
 import { NoPrint } from '../../components/Layout/NoPrint'
+import { isClass } from '../../utilities/isClass'
 
 export const Timetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -64,9 +65,11 @@ export const Timetable = () => {
                 if (!weekTimetable.showSaturday && isSaturday(timetable.date)) {
                   return null
                 }
+
                 if (!weekTimetable.showSunday && isSunday(timetable.date)) {
                   return null
                 }
+
                 return (
                   <Th key={timetable.date} textAlign="center">
                     <Text fontSize="16px" padding="8px">
@@ -80,13 +83,13 @@ export const Timetable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {config.classes.map((classItem) => {
+            {config.classes.map((classConfig) => {
               return (
-                <Tr key={classItem.id}>
+                <Tr key={classConfig.id}>
                   <Th>
                     <Flex alignItems="center" justifyContent="center">
                       <Text fontSize="16px" paddingX="8px">
-                        {classItem.name}
+                        {classConfig.name}
                       </Text>
                     </Flex>
                   </Th>
@@ -97,17 +100,19 @@ export const Timetable = () => {
                     ) {
                       return null
                     }
+
                     if (
                       !weekTimetable.showSunday &&
                       isSunday(dateTimetable.date)
                     ) {
                       return null
                     }
+
                     return (
                       <ClassItem
                         key={dateTimetable.date}
                         dateTimetable={dateTimetable}
-                        classId={classItem.id}
+                        classConfig={classConfig}
                       />
                     )
                   })}
@@ -124,27 +129,29 @@ export const Timetable = () => {
 
 const ClassItem = ({
   dateTimetable,
-  classId,
+  classConfig,
 }: {
   dateTimetable: TimetableDate
-  classId: string
+  classConfig: ClassConfig
 }) => {
-  const classItem = dateTimetable.classes[classId]
+  const classItem = dateTimetable.classes[classConfig.id]
 
   return (
     <Td>
-      <Flex
-        width="100%"
-        justifyContent="space-around"
-        borderBottom="1px solid #000"
-        fontSize="14px"
-      >
-        {classItem.subject.length === 0 && <Text>-</Text>}
-        {classItem.subject.length !== 0 &&
-          classItem.subject.map((subject, index) => (
-            <Text key={index}>{subject}</Text>
-          ))}
-      </Flex>
+      {isClass(classConfig.type) && (
+        <Flex
+          width="100%"
+          justifyContent="space-around"
+          borderBottom="1px solid #000"
+          fontSize="14px"
+        >
+          {classItem.subject.length === 0 && <Text>-</Text>}
+          {classItem.subject.length !== 0 &&
+            classItem.subject.map((subject, index) => (
+              <Text key={index}>{subject}</Text>
+            ))}
+        </Flex>
+      )}
       <Box width="100%" height="50px" fontSize="12px">
         {classItem.note}
       </Box>
