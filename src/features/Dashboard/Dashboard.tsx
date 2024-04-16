@@ -9,7 +9,7 @@ import { Input } from '../../components/Form/Input'
 import { Text } from '../../components/Layout/Text'
 import { InputGroup } from '../../components/Form/InputGroup'
 import { InputRightAddon } from '../../components/Form/InputRightAddon'
-import { Button } from '../../components/Form/Button'
+import { Button, IconButton } from '../../components/Form/Button'
 import { Alert, AlertIcon } from '../../components/Layout/Alert'
 import { replaceToSlash } from '../../utilities/formatDate'
 import {
@@ -20,6 +20,8 @@ import {
   AccordionPanel,
 } from '../../components/Layout/Accordion'
 import { Box } from '../../components/Layout/Box'
+import { Flex } from '../../components/Layout/Flex'
+import { CloseIcon } from '@chakra-ui/icons'
 
 export const Dashboard = () => {
   return (
@@ -84,7 +86,14 @@ const CreateTimeTable = () => {
 }
 
 const WeekTable = () => {
-  const { timetables } = useTimetableStore()
+  const { timetables, updateTimetables } = useTimetableStore()
+
+  const onClickRemoveTimetable = (firstDate: string) => () => {
+    const newTimetables = timetables.filter((timetable) => {
+      return timetable.firstDate !== firstDate
+    })
+    updateTimetables(newTimetables)
+  }
 
   return (
     <>
@@ -107,14 +116,27 @@ const WeekTable = () => {
             <AccordionPanel padding="0">
               {timetables.map((weekTimetable) => {
                 return (
-                  <Link
-                    key={weekTimetable.firstDate}
-                    to={`/${weekTimetable.firstDate.replace(/-/g, '')}`}
-                  >
-                    <Text padding="8px 16px" _hover={{ background: '#ccc' }}>
-                      {replaceToSlash(weekTimetable.firstDate)}
-                    </Text>
-                  </Link>
+                  <Flex key={weekTimetable.firstDate}>
+                    <Box flex="1">
+                      <Link
+                        to={`/${weekTimetable.firstDate.replace(/-/g, '')}`}
+                      >
+                        <Text
+                          padding="8px 16px"
+                          _hover={{ background: '#ccc' }}
+                        >
+                          {replaceToSlash(weekTimetable.firstDate)}
+                        </Text>
+                      </Link>
+                    </Box>
+                    <IconButton
+                      onClick={onClickRemoveTimetable(weekTimetable.firstDate)}
+                      aria-label="closeIcon"
+                      icon={<CloseIcon />}
+                      background="white"
+                      borderRadius="0"
+                    />
+                  </Flex>
                 )
               })}
             </AccordionPanel>
