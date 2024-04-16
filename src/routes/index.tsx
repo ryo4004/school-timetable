@@ -2,7 +2,7 @@ import { Outlet, type RouteObject, useRoutes } from 'react-router-dom'
 import { Timetable } from '../features/Timetable'
 import { Settings } from '../features/settings'
 import { Layout } from '../components/Layout/Layout'
-import { Dashboard } from '../features/Dashboard'
+import { Dashboard } from '../features/Dashboard2'
 import { Guide } from '../features/Guide/Guide'
 
 export const AppRoutes = () => {
