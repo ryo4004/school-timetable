@@ -56,9 +56,10 @@ export const Timetable = () => {
               </Td>
               <Td>
                 <Text padding="2px" textAlign="center">
-                  今週の目標{weekTimetable.note}
+                  今週の目標
                 </Text>
               </Td>
+              <Td colSpan={5}>{weekTimetable.note}</Td>
             </Tr>
             <Tr>
               <Th></Th>

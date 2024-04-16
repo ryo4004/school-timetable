@@ -31,6 +31,7 @@ export const TimetableEdit = ({
 
   return (
     <NoPrint>
+      <WeekNote weekIndex={weekIndex} weekTimetable={weekTimetable} />
       {weekTimetable.list.map((timetable) => {
         const dateTime = DateTime.fromISO(timetable.date)
         return (
@@ -71,6 +72,40 @@ export const TimetableEdit = ({
         )
       })}
     </NoPrint>
+  )
+}
+
+const WeekNote = ({
+  weekTimetable,
+  weekIndex,
+}: {
+  weekTimetable: Timetable
+  weekIndex: number
+}) => {
+  const { updateTimetableNote } = useTimetableStore()
+
+  const [note, setNote] = useState(weekTimetable.note)
+
+  const update = () => {
+    updateTimetableNote(weekIndex, note)
+  }
+
+  return (
+    <Box marginY="8px">
+      <Text>今週の目標</Text>
+      <InputGroup marginY="8px">
+        <Input
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          borderRadius="0.375rem 0 0 0.375rem"
+        />
+        <InputRightAddon padding="0">
+          <Button onClick={update} borderRadius="0 0.315rem 0.315rem 0">
+            反映
+          </Button>
+        </InputRightAddon>
+      </InputGroup>
+    </Box>
   )
 }
 

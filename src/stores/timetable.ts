@@ -18,6 +18,7 @@ type TimetableStore = {
     schedule: DateSchedule[],
   ) => void
   updateTimetables: (newTimetables: Timetable[]) => void
+  updateTimetableNote: (weekIndex: number, newNote: string) => void
   loadTimetable: (timetables: Timetable[]) => void
 }
 
@@ -84,6 +85,20 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
     set((state) => ({
       ...state,
       timetables: newTimetables,
+    }))
+  },
+  updateTimetableNote: (weekIndex, newNote) => {
+    set((state) => ({
+      ...state,
+      timetables: state.timetables.map((timetable, index) => {
+        if (index === weekIndex) {
+          return {
+            ...timetable,
+            note: newNote,
+          }
+        }
+        return timetable
+      }),
     }))
   },
   loadTimetable: (timetables) => {
