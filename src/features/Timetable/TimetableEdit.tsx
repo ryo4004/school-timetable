@@ -32,6 +32,8 @@ export const TimetableEdit = ({
   return (
     <NoPrint>
       <WeekNote weekIndex={weekIndex} weekTimetable={weekTimetable} />
+      <ShowSaturday weekIndex={weekIndex} weekTimetable={weekTimetable} />
+      <ShowSunday weekIndex={weekIndex} weekTimetable={weekTimetable} />
       {weekTimetable.list.map((timetable) => {
         const dateTime = DateTime.fromISO(timetable.date)
         return (
@@ -105,6 +107,50 @@ const WeekNote = ({
           </Button>
         </InputRightAddon>
       </InputGroup>
+    </Box>
+  )
+}
+
+const ShowSaturday = ({
+  weekTimetable,
+  weekIndex,
+}: {
+  weekTimetable: Timetable
+  weekIndex: number
+}) => {
+  const { updateTimetableShowSaturday } = useTimetableStore()
+
+  return (
+    <Box marginY="8px">
+      <Checkbox
+        isChecked={weekTimetable.showSaturday}
+        onChange={(e) =>
+          updateTimetableShowSaturday(weekIndex, e.target.checked)
+        }
+      >
+        土曜日を表示する
+      </Checkbox>
+    </Box>
+  )
+}
+
+const ShowSunday = ({
+  weekTimetable,
+  weekIndex,
+}: {
+  weekTimetable: Timetable
+  weekIndex: number
+}) => {
+  const { updateTimetableShowSunday } = useTimetableStore()
+
+  return (
+    <Box marginY="8px">
+      <Checkbox
+        isChecked={weekTimetable.showSunday}
+        onChange={(e) => updateTimetableShowSunday(weekIndex, e.target.checked)}
+      >
+        日曜日を表示する
+      </Checkbox>
     </Box>
   )
 }
@@ -269,7 +315,7 @@ const ClassItem = ({
           </>
         )}
         <Checkbox
-          checked={isDivide}
+          isChecked={isDivide}
           onChange={(e) => {
             if (!e.target.checked) {
               onUpdateSubject([classItem.subject[0]].filter(truthy))

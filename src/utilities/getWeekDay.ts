@@ -18,5 +18,14 @@ export const getWeekNumber = (weekday: Weekday) => {
 
 type ISOString = string
 
-export const isMonday = (date: ISOString) =>
-  getWeek(DateTime.fromISO(date)) === 0
+export const isMonday = (date: ISOString) => {
+  return getWeek(DateTime.fromISO(date)) === 0
+}
+
+export const isSaturday = (date: ISOString) => {
+  return getWeek(DateTime.fromISO(date)) === 5
+}
+
+export const isSunday = (date: ISOString) => {
+  return getWeek(DateTime.fromISO(date)) === 6
+}

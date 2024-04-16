@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { useTimetableStore } from '../../stores/timetable'
 import { DateTime } from 'luxon'
-import { getWeekDay } from '../../utilities/getWeekDay'
+import { getWeekDay, isSaturday, isSunday } from '../../utilities/getWeekDay'
 import { TimetableDate } from '../../types'
 import { useConfigStore } from '../../stores/configs'
 import { TimetableEdit } from './TimetableEdit'
@@ -61,6 +61,12 @@ export const Timetable = () => {
               <Th></Th>
               {weekTimetable.list.map((timetable) => {
                 const dateTime = DateTime.fromISO(timetable.date)
+                if (!weekTimetable.showSaturday && isSaturday(timetable.date)) {
+                  return null
+                }
+                if (!weekTimetable.showSunday && isSunday(timetable.date)) {
+                  return null
+                }
                 return (
                   <Th key={timetable.date} textAlign="center">
                     <Text fontSize="16px" padding="8px">
@@ -84,11 +90,23 @@ export const Timetable = () => {
                       </Text>
                     </Flex>
                   </Th>
-                  {weekTimetable.list.map((date) => {
+                  {weekTimetable.list.map((dateTimetable) => {
+                    if (
+                      !weekTimetable.showSaturday &&
+                      isSaturday(dateTimetable.date)
+                    ) {
+                      return null
+                    }
+                    if (
+                      !weekTimetable.showSunday &&
+                      isSunday(dateTimetable.date)
+                    ) {
+                      return null
+                    }
                     return (
                       <ClassItem
-                        key={date.date}
-                        timetableDate={date}
+                        key={dateTimetable.date}
+                        dateTimetable={dateTimetable}
                         classId={classItem.id}
                       />
                     )
@@ -105,13 +123,13 @@ export const Timetable = () => {
 }
 
 const ClassItem = ({
-  timetableDate,
+  dateTimetable,
   classId,
 }: {
-  timetableDate: TimetableDate
+  dateTimetable: TimetableDate
   classId: string
 }) => {
-  const classItem = timetableDate.classes[classId]
+  const classItem = dateTimetable.classes[classId]
 
   return (
     <Td>

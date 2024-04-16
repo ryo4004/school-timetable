@@ -19,6 +19,11 @@ type TimetableStore = {
   ) => void
   updateTimetables: (newTimetables: Timetable[]) => void
   updateTimetableNote: (weekIndex: number, newNote: string) => void
+  updateTimetableShowSaturday: (
+    weekIndex: number,
+    showSaturday: boolean,
+  ) => void
+  updateTimetableShowSunday: (weekIndex: number, showSunday: boolean) => void
   loadTimetable: (timetables: Timetable[]) => void
 }
 
@@ -54,6 +59,8 @@ const getInitialTimetable = (
   return {
     firstDate,
     note: '',
+    showSaturday: false,
+    showSunday: false,
     list: timetableList,
   }
 }
@@ -92,10 +99,29 @@ export const useTimetableStore = create<TimetableStore>((set) => ({
       ...state,
       timetables: state.timetables.map((timetable, index) => {
         if (index === weekIndex) {
-          return {
-            ...timetable,
-            note: newNote,
-          }
+          return { ...timetable, note: newNote }
+        }
+        return timetable
+      }),
+    }))
+  },
+  updateTimetableShowSaturday: (weekIndex, showSaturday) => {
+    set((state) => ({
+      ...state,
+      timetables: state.timetables.map((timetable, index) => {
+        if (index === weekIndex) {
+          return { ...timetable, showSaturday }
+        }
+        return timetable
+      }),
+    }))
+  },
+  updateTimetableShowSunday: (weekIndex, showSunday) => {
+    set((state) => ({
+      ...state,
+      timetables: state.timetables.map((timetable, index) => {
+        if (index === weekIndex) {
+          return { ...timetable, showSunday }
         }
         return timetable
       }),
