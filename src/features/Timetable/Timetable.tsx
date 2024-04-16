@@ -46,21 +46,17 @@ export const Timetable = () => {
         <Text as="h2">週案{weekIndex + 1}の編集</Text>
       </NoPrint>
       <TableContainer>
+        <Flex alignItems="center">
+          <Text padding="8px" fontSize="24px" fontWeight="bold">
+            週案（{weekIndex + 1}週）
+          </Text>
+          <Text padding="2px" textAlign="center">
+            今週の目標
+          </Text>
+          <Text marginLeft="8px">{weekTimetable.note}</Text>
+        </Flex>
         <Table width="100%" sx={{ tableLayout: 'auto' }}>
           <Thead>
-            <Tr>
-              <Td colSpan={2} minWidth="auto" textAlign="center">
-                <Text padding="8px" fontSize="24px" fontWeight="bold">
-                  週案（{weekIndex + 1}週）
-                </Text>
-              </Td>
-              <Td>
-                <Text padding="2px" textAlign="center">
-                  今週の目標
-                </Text>
-              </Td>
-              <Td colSpan={5}>{weekTimetable.note}</Td>
-            </Tr>
             <Tr>
               <Th></Th>
               {weekTimetable.list.map((timetable) => {
