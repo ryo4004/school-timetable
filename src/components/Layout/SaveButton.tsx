@@ -23,11 +23,8 @@ export const SaveButton = () => {
           timetables,
           config,
         }
-        const dateString = DateTime.now().toFormat('yyyyMMdd')
-        downloadFile(
-          JSON.stringify(saveContents),
-          `timetable_${dateString}.txt`,
-        )
+        const dateString = DateTime.now().toFormat('yyyyMMdd_HHmmss')
+        downloadFile(JSON.stringify(saveContents), `週案くん_${dateString}.txt`)
       }}
       borderRadius="0"
     >
