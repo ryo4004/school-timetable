@@ -154,7 +154,7 @@ const ClassItem = ({
             ))}
         </Flex>
       )}
-      <Box width="100%" height="50px" fontSize="12px">
+      <Box width="100%" height="50px" paddingX="2px" fontSize="12px">
         {classItem.note}
       </Box>
     </Td>
