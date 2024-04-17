@@ -103,7 +103,7 @@ export const WeekTable = () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel padding="0">
-              {timetables.map((weekTimetable) => {
+              {timetables.map((weekTimetable, index) => {
                 return (
                   <Flex key={weekTimetable.firstDate}>
                     <Box flex="1">
@@ -114,6 +114,7 @@ export const WeekTable = () => {
                           padding="8px 16px"
                           _hover={{ background: '#ccc' }}
                         >
+                          週案{index + 1}&nbsp;
                           {replaceToSlash(weekTimetable.firstDate)}
                         </Text>
                       </Link>
