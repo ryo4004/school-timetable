@@ -1,7 +1,6 @@
-import { Outlet, type RouteObject, useRoutes } from 'react-router-dom'
+import { type RouteObject, useRoutes } from 'react-router-dom'
 import { Timetable } from '../features/Timetable'
 import { Settings } from '../features/settings'
-import { Layout } from '../components/Layout/Layout'
 import { Dashboard } from '../features/dashboard'
 import { Guide } from '../features/Guide/Guide'
 
@@ -13,11 +12,6 @@ export const AppRoutes = () => {
 const routes: RouteObject[] = [
   {
     path: '',
-    element: (
-      <Layout>
-        <Outlet />
-      </Layout>
-    ),
     children: [
       { path: '/', element: <Guide /> },
       { path: '/dashboard', element: <Dashboard /> },
