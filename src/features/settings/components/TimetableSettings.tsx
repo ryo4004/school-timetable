@@ -13,6 +13,10 @@ import {
 } from '../../../components/Table/Table'
 import { Flex } from '../../../components/Layout/Flex'
 import { Box } from '../../../components/Layout/Box'
+import { Tag } from '../../../components/Form/Tag'
+import { classTypeColorSelector } from '../../../utilities/classTypeColorSelector'
+import { CLASS_TYPES } from '../../../types'
+import { isClass } from '../../../utilities/isClass'
 
 export const TimetableSettings = () => {
   const { config } = useConfigStore()
@@ -42,12 +46,23 @@ export const TimetableSettings = () => {
                     <Text fontSize="16px" paddingX="8px">
                       {classItem.name}
                     </Text>
+                    <Tag
+                      marginY="2px"
+                      borderLeft="0"
+                      variant="outline"
+                      colorScheme={classTypeColorSelector(classItem.type)}
+                      size="sm"
+                    >
+                      {CLASS_TYPES[classItem.type]}
+                    </Tag>
                   </Flex>
                 </Th>
                 {WEEKDAYS.map((weekday) => {
                   return (
                     <Td key={weekday}>
-                      <ClassItem weekday={weekday} classId={classItem.id} />
+                      {isClass(classItem.type) && (
+                        <ClassItem weekday={weekday} classId={classItem.id} />
+                      )}
                     </Td>
                   )
                 })}
