@@ -282,7 +282,8 @@ const ClassItem = ({
             borderBottom="0"
             fontSize="14px"
           >
-            {classItem.subject.length === 0 && <Text>-</Text>}
+            {/* eslint-disable-next-line no-irregular-whitespace */}
+            {classItem.subject.length === 0 && <Text>　</Text>}
             {classItem.subject.map((subject, index) => (
               <Text key={index} whiteSpace="nowrap">
                 {subject}

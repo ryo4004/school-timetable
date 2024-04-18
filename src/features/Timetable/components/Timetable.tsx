@@ -147,7 +147,8 @@ const ClassItem = ({
           borderBottom="1px solid #000"
           fontSize="14px"
         >
-          {classItem.subject.length === 0 && <Text>-</Text>}
+          {/* eslint-disable-next-line no-irregular-whitespace */}
+          {classItem.subject.length === 0 && <Text>　</Text>}
           {classItem.subject.length !== 0 &&
             classItem.subject.map((subject, index) => (
               <Text key={index}>{subject}</Text>
