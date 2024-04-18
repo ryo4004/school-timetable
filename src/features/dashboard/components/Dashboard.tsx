@@ -21,6 +21,7 @@ import {
 import { Box } from '../../../components/Layout/Box'
 import { Flex } from '../../../components/Layout/Flex'
 import { CloseIcon } from '@chakra-ui/icons'
+import { Dialog } from '../../../components/Dialog/Dialog'
 
 export const CreateTimeTable = () => {
   const [startDate, setStartDate] = useState('')
@@ -119,12 +120,18 @@ export const WeekTable = () => {
                         </Text>
                       </Link>
                     </Box>
-                    <IconButton
-                      onClick={onClickRemoveTimetable(weekTimetable.firstDate)}
-                      aria-label="closeIcon"
-                      icon={<CloseIcon />}
-                      background="white"
-                      borderRadius="0"
+                    <Dialog
+                      triggerButton={
+                        <IconButton
+                          aria-label="closeIcon"
+                          icon={<CloseIcon />}
+                          background="white"
+                          borderRadius="0"
+                        />
+                      }
+                      bodyText="削除しますか？"
+                      confirmButtonLabel="削除"
+                      confirm={onClickRemoveTimetable(weekTimetable.firstDate)}
                     />
                   </Flex>
                 )
