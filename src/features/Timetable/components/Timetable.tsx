@@ -50,7 +50,14 @@ export const MainTimetable = () => {
           <Text padding="2px" textAlign="center">
             今週の目標
           </Text>
-          <Text marginLeft="8px">{weekTimetable.note}</Text>
+          <Text
+            marginLeft="8px"
+            fontSize="12px"
+            lineHeight="14px"
+            whiteSpace="pre-wrap"
+          >
+            {weekTimetable.note}
+          </Text>
         </Flex>
         <Table width="100%" sx={{ tableLayout: 'auto' }}>
           <Thead>
@@ -150,7 +157,14 @@ const ClassItem = ({
             ))}
         </Flex>
       )}
-      <Box width="100%" height="50px" paddingX="2px" fontSize="12px">
+      <Box
+        width="100%"
+        height="50px"
+        paddingX="2px"
+        fontSize="12px"
+        lineHeight="14px"
+        whiteSpace="pre-wrap"
+      >
         {classItem.note}
       </Box>
     </Td>

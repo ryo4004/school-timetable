@@ -11,7 +11,6 @@ import { useTimetableStore } from '../../../stores/timetable'
 import { SubjectSelect } from './SubjectSelect'
 import { type ChangeEvent, useState } from 'react'
 import { truthy } from '../../../utilities/truthy'
-import { Input } from '../../../components/Form/Input'
 import { Checkbox } from '../../../components/Form/Checkbox'
 import { Flex } from '../../../components/Layout/Flex'
 import { Text } from '../../../components/Layout/Text'
@@ -25,6 +24,7 @@ import { NoPrint } from '../../../components/Layout/NoPrint'
 import { HEADER_HEIGHT } from '../../../components/Layout/Layout'
 import { ChevronUpIcon } from '@chakra-ui/icons'
 import { isClass } from '../../../utilities/isClass'
+import { Textarea } from '../../../components/Form/Textarea'
 
 export const TimetableEdit = ({
   weekTimetable,
@@ -110,13 +110,18 @@ const WeekNote = ({
     <Box margin="8px">
       <Text>今週の目標</Text>
       <InputGroup marginY="8px">
-        <Input
+        <Textarea
           value={note}
           onChange={(e) => setNote(e.target.value)}
+          height="80px"
           borderRadius="0.375rem 0 0 0.375rem"
         />
-        <InputRightAddon padding="0">
-          <Button onClick={update} borderRadius="0 0.315rem 0.315rem 0">
+        <InputRightAddon height="80px" padding="0">
+          <Button
+            onClick={update}
+            height="80px"
+            borderRadius="0 0.315rem 0.315rem 0"
+          >
             反映
           </Button>
         </InputRightAddon>
@@ -305,7 +310,14 @@ const ClassItem = ({
             ))}
           </Flex>
         )}
-        <Box width="100%" height="50px" border="1px solid #000" fontSize="12px">
+        <Box
+          width="100%"
+          height="50px"
+          border="1px solid #000"
+          fontSize="12px"
+          lineHeight="14px"
+          whiteSpace="pre-wrap"
+        >
           {classItem.note}
         </Box>
       </Box>
@@ -347,13 +359,18 @@ const ClassItem = ({
         </Box>
       )}
       <InputGroup marginY="8px">
-        <Input
+        <Textarea
           value={noteInput}
           onChange={(e) => setNoteInput(e.target.value)}
+          height="80px"
           borderRadius="0.375rem 0 0 0.375rem"
         />
-        <InputRightAddon padding="0">
-          <Button onClick={onUpdateNote} borderRadius="0 0.315rem 0.315rem 0">
+        <InputRightAddon height="80px" padding="0">
+          <Button
+            onClick={onUpdateNote}
+            height="80px"
+            borderRadius="0 0.315rem 0.315rem 0"
+          >
             反映
           </Button>
         </InputRightAddon>
