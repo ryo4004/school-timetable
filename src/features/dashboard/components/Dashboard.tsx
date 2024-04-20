@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { useTimetableStore } from '../../../stores/timetable'
-import { LoadButton } from '../../Home/components/LoadButton'
 import { Link } from 'react-router-dom'
+import { useTimetableStore } from '../../../stores/timetable'
 import { useConfigStore } from '../../../stores/configs'
 import { isMonday } from '../../../utilities/getWeekDay'
 import { Input } from '../../../components/Form/Input'
@@ -91,10 +90,7 @@ export const WeekTable = () => {
         週案一覧
       </Text>
       {timetables.length === 0 && (
-        <>
-          週案ページの作成が必要です
-          <LoadButton />
-        </>
+        <Text marginY="16px">週案ページがありません</Text>
       )}
       {timetables.length !== 0 && (
         <Accordion allowToggle={true} defaultIndex={[0]} marginY="16px">
