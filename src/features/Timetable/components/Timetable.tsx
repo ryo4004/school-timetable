@@ -63,7 +63,6 @@ export const MainTimetable = () => {
             <Tr>
               <Th></Th>
               {weekTimetable.list.map((timetable) => {
-                const dateTime = DateTime.fromISO(timetable.date)
                 if (!weekTimetable.showSaturday && isSaturday(timetable.date)) {
                   return null
                 }
@@ -71,6 +70,8 @@ export const MainTimetable = () => {
                 if (!weekTimetable.showSunday && isSunday(timetable.date)) {
                   return null
                 }
+
+                const dateTime = DateTime.fromISO(timetable.date)
 
                 return (
                   <Th key={timetable.date} textAlign="center">

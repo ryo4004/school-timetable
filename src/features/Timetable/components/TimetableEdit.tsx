@@ -5,7 +5,7 @@ import {
   Timetable,
   TimetableDate,
 } from '../../../types'
-import { getWeekDay } from '../../../utilities/getWeekDay'
+import { getWeekDay, isSaturday, isSunday } from '../../../utilities/getWeekDay'
 import { useConfigStore } from '../../../stores/configs'
 import { useTimetableStore } from '../../../stores/timetable'
 import { SubjectSelect } from './SubjectSelect'
@@ -41,6 +41,14 @@ export const TimetableEdit = ({
       <ShowSaturday weekIndex={weekIndex} weekTimetable={weekTimetable} />
       <ShowSunday weekIndex={weekIndex} weekTimetable={weekTimetable} />
       {weekTimetable.list.map((timetable) => {
+        if (!weekTimetable.showSaturday && isSaturday(timetable.date)) {
+          return null
+        }
+
+        if (!weekTimetable.showSunday && isSunday(timetable.date)) {
+          return null
+        }
+
         const dateTime = DateTime.fromISO(timetable.date)
         return (
           <Box
