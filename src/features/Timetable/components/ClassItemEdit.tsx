@@ -86,7 +86,16 @@ export const ClassItemEdit = ({
 
   return (
     <Box padding="8px">
-      <Box paddingY="8px">
+      <Flex paddingY="8px">
+        {classConfig.name ? (
+          <Text marginX="8px" fontWeight="bold">
+            {classConfig.name}
+          </Text>
+        ) : (
+          <Text marginX="8px" color="#ccc">
+            設定無し
+          </Text>
+        )}
         <Tag
           variant="outline"
           colorScheme={classTypeColorSelector(classConfig.type)}
@@ -94,15 +103,7 @@ export const ClassItemEdit = ({
         >
           {CLASS_TYPES[classConfig.type]}
         </Tag>
-        <Tag
-          marginLeft="8px"
-          variant="outline"
-          colorScheme={classTypeColorSelector(classConfig.type)}
-          size="md"
-        >
-          {classConfig.name ? classConfig.name : '-'}
-        </Tag>
-      </Box>
+      </Flex>
       <Box maxWidth="calc(100% / 3)" minWidth="80px" marginY="8px">
         <Text fontSize="11px">プレビュー</Text>
         {isClass(classConfig.type) && (

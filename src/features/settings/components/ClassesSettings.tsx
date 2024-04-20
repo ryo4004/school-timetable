@@ -11,8 +11,8 @@ import { Button, IconButton } from '../../../components/Form/Button'
 import { Select } from '../../../components/Form/Select'
 import { InputLeftAddon } from '../../../components/Form/InputLeftAddon'
 import { Flex } from '../../../components/Layout/Flex'
-import { Tag, TagCloseButton } from '../../../components/Form/Tag'
-import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { Tag } from '../../../components/Form/Tag'
+import { ChevronUpIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons'
 import { classTypeColorSelector } from '../../../utilities/classTypeColorSelector'
 import { Box } from '../../../components/Layout/Box'
 
@@ -96,6 +96,17 @@ export const ClassesSettings = () => {
               icon={<ChevronDownIcon />}
               isDisabled={index === config.classes.length - 1}
             />
+
+            {classItem.name ? (
+              <Text marginX="8px" fontWeight="bold">
+                {classItem.name}
+              </Text>
+            ) : (
+              <Text marginX="8px" color="#ccc">
+                設定無し
+              </Text>
+            )}
+
             <Tag
               borderLeft="0"
               variant="outline"
@@ -104,21 +115,19 @@ export const ClassesSettings = () => {
             >
               {CLASS_TYPES[classItem.type]}
             </Tag>
-            <Tag
-              marginLeft="8px"
+            <IconButton
+              onClick={() => {
+                updateClasses(
+                  config.classes.filter((item) => item.id !== classItem.id),
+                )
+              }}
+              marginX="8px"
               variant="outline"
-              colorScheme={classTypeColorSelector(classItem.type)}
-              size="lg"
-            >
-              {classItem.name ? classItem.name : '-'}
-              <TagCloseButton
-                onClick={() => {
-                  updateClasses(
-                    config.classes.filter((item) => item.id !== classItem.id),
-                  )
-                }}
-              />
-            </Tag>
+              size="sm"
+              aria-label="CloseIcon"
+              icon={<CloseIcon />}
+              isDisabled={index === config.classes.length - 1}
+            />
           </Flex>
         )
       })}
