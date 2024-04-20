@@ -13,6 +13,7 @@ export const Modal = ({
   triggerElement,
   bodyElement,
 }: {
+  // divなどonClickが設定できる要素で囲まれていること
   triggerElement: ReactElement
   bodyElement: ReactElement
 } & Omit<ModalProps, 'children' | 'isOpen' | 'onClose'>) => {
