@@ -10,5 +10,5 @@ export const Button = (props: ButtonProps) => {
 }
 
 export const IconButton = (props: IconButtonProps) => {
-  return <ChakraIconButton {...props} />
+  return <ChakraIconButton border="1px solid #ccc" {...props} />
 }

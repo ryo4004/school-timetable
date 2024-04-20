@@ -4,5 +4,5 @@ import {
 } from '@chakra-ui/react'
 
 export const InputLeftAddon = (props: InputLeftAddonProps) => {
-  return <ChakraInputLeftAddon {...props} />
+  return <ChakraInputLeftAddon border="1px solid #ccc" {...props} />
 }
