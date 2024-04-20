@@ -1,5 +1,5 @@
 import { type RouteObject, useRoutes } from 'react-router-dom'
-import { Timetable } from '../features/Timetable2'
+import { Timetable } from '../features/timetable'
 import { Settings } from '../features/settings'
 import { Dashboard } from '../features/dashboard'
 import { Home } from '../features/home/Home'
