@@ -255,7 +255,13 @@ const ClassItem = ({
   }
 
   return (
-    <Box marginX="8px">
+    <Box
+      margin="8px"
+      padding="8px"
+      border="1px solid #ccc"
+      borderRadius="0.375rem"
+      boxShadow="base"
+    >
       <Box paddingY="8px">
         <Tag
           variant="outline"
