@@ -125,6 +125,7 @@ export const ClassItemEdit = ({
         <Box
           width="100%"
           minHeight="50px"
+          paddingX="2px"
           border="1px solid #000"
           fontSize="12px"
           lineHeight="14px"
