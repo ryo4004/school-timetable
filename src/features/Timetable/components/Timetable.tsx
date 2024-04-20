@@ -18,7 +18,6 @@ import {
   Tr,
 } from '../../../components/Table/Table'
 import { Flex } from '../../../components/Layout/Flex'
-import { NoPrint } from '../../../components/Layout/NoPrint'
 import { isClass } from '../../../utilities/isClass'
 
 export const MainTimetable = () => {
@@ -43,11 +42,6 @@ export const MainTimetable = () => {
 
   return (
     <Box>
-      <NoPrint>
-        <Text as="h2" marginX="8px">
-          週案{weekIndex + 1}の編集
-        </Text>
-      </NoPrint>
       <TableContainer marginX="8px">
         <Flex alignItems="center">
           <Text padding="8px" fontSize="24px" fontWeight="bold">
