@@ -2,7 +2,7 @@ import { type RouteObject, useRoutes } from 'react-router-dom'
 import { Timetable } from '../features/Timetable'
 import { Settings } from '../features/settings'
 import { Dashboard } from '../features/dashboard'
-import { Guide } from '../features/Guide/Guide'
+import { Home } from '../features/Home/Home'
 
 export const AppRoutes = () => {
   const element = useRoutes(routes)
@@ -13,7 +13,7 @@ const routes: RouteObject[] = [
   {
     path: '',
     children: [
-      { path: '/', element: <Guide /> },
+      { path: '/', element: <Home /> },
       { path: '/dashboard', element: <Dashboard /> },
       { path: '/:key', element: <Timetable /> },
       {

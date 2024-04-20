@@ -3,7 +3,7 @@ import { Box } from '../../components/Layout/Box'
 import { Text } from '../../components/Layout/Text'
 import { LoadButton } from '../dashboard/components/LoadButton'
 
-export const Guide = () => {
+export const Home = () => {
   return (
     <Box marginX="8px">
       <Text as="h1" fontSize="24px" fontWeight="bold">
