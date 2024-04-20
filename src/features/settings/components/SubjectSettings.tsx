@@ -76,7 +76,7 @@ export const SubjectSettings = () => {
             icon={<ChevronDownIcon />}
             isDisabled={index === config.subjects.length - 1}
           />
-          <Tag borderRadius="full" colorScheme="blue" size="lg">
+          <Tag borderRadius="full" colorScheme="orange" size="lg">
             {subject}
             <TagCloseButton
               onClick={() => {
