@@ -2,7 +2,7 @@ import { type RouteObject, useRoutes } from 'react-router-dom'
 import { Timetable } from '../features/Timetable'
 import { Settings } from '../features/settings'
 import { Dashboard } from '../features/dashboard'
-import { Home } from '../features/Home/Home'
+import { Home } from '../features/Home2/Home'
 
 export const AppRoutes = () => {
   const element = useRoutes(routes)
