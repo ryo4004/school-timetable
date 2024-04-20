@@ -1,5 +1,5 @@
 import { WEEKDAYS, Weekday, getWeekNumber } from '../../../utilities/getWeekDay'
-import { SubjectSelect } from '../../Timetable/components/SubjectSelect'
+import { SubjectSelect } from '../../Timetable2/components/SubjectSelect'
 import { useConfigStore } from '../../../stores/configs'
 import { Text } from '../../../components/Layout/Text'
 import {
