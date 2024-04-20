@@ -9,11 +9,10 @@ import { Text } from '../../../components/Layout/Text'
 import { Box } from '../../../components/Layout/Box'
 import { Tag } from '../../../components/Form/Tag'
 import { classTypeColorSelector } from '../../../utilities/classTypeColorSelector'
-import { InputGroup } from '../../../components/Form/InputGroup'
-import { InputRightAddon } from '../../../components/Form/InputRightAddon'
 import { Button } from '../../../components/Form/Button'
 import { isClass } from '../../../utilities/isClass'
 import { Textarea } from '../../../components/Form/Textarea'
+import { useModalContext } from '../../../components/Modal/Modal'
 
 export const ClassItemEdit = ({
   weekIndex,
@@ -25,10 +24,12 @@ export const ClassItemEdit = ({
   classConfig: ClassConfig
 }) => {
   const { timetables, updateTimetables } = useTimetableStore()
+  const { onClose } = useModalContext()
 
   const classItem = timetableDate.classes[classConfig.id]
 
   const [isDivide, setIsDivide] = useState(classItem.subject.length > 1)
+  const [subjects, setSubjects] = useState(classItem.subject)
   const [noteInput, setNoteInput] = useState(classItem.note)
 
   const onUpdateTimetables = (
@@ -52,30 +53,17 @@ export const ClassItemEdit = ({
     })
 
     updateTimetables(newTimetables)
+    onClose()
   }
 
-  const onUpdateSubject = (selectedSubjects: string[]) => {
+  const onUpdate = () => {
     const newTimetableDate = {
       ...timetableDate,
       classes: {
         ...timetableDate.classes,
         [classConfig.id]: {
           ...classItem,
-          subject: selectedSubjects,
-        },
-      },
-    }
-
-    onUpdateTimetables(weekIndex, newTimetableDate)
-  }
-
-  const onUpdateNote = () => {
-    const newTimetableDate = {
-      ...timetableDate,
-      classes: {
-        ...timetableDate.classes,
-        [classConfig.id]: {
-          ...classItem,
+          subject: subjects,
           note: noteInput,
         },
       },
@@ -85,27 +73,15 @@ export const ClassItemEdit = ({
   }
 
   const onChangeFirstSubject = (e: ChangeEvent<HTMLSelectElement>) => {
-    onUpdateSubject(
-      [e.target.value, classItem.subject[1], classItem.subject[2]].filter(
-        truthy,
-      ),
-    )
+    setSubjects([e.target.value, subjects[1], subjects[2]].filter(truthy))
   }
 
   const onChangeSecondSubject = (e: ChangeEvent<HTMLSelectElement>) => {
-    onUpdateSubject(
-      [classItem.subject[0], e.target.value, classItem.subject[2]].filter(
-        truthy,
-      ),
-    )
+    setSubjects([subjects[0], e.target.value, subjects[2]].filter(truthy))
   }
 
   const onChangeThirdSubject = (e: ChangeEvent<HTMLSelectElement>) => {
-    onUpdateSubject(
-      [classItem.subject[0], classItem.subject[1], e.target.value].filter(
-        truthy,
-      ),
-    )
+    setSubjects([subjects[0], subjects[1], e.target.value].filter(truthy))
   }
 
   return (
@@ -137,8 +113,8 @@ export const ClassItemEdit = ({
             fontSize="14px"
           >
             {/* eslint-disable-next-line no-irregular-whitespace */}
-            {classItem.subject.length === 0 && <Text>　</Text>}
-            {classItem.subject.map((subject, index) => (
+            {subjects.length === 0 && <Text>　</Text>}
+            {subjects.map((subject, index) => (
               <Text key={index} whiteSpace="nowrap">
                 {subject}
               </Text>
@@ -153,13 +129,13 @@ export const ClassItemEdit = ({
           lineHeight="14px"
           whiteSpace="pre-wrap"
         >
-          {classItem.note}
+          {noteInput}
         </Box>
       </Box>
       {isClass(classConfig.type) && (
         <Box>
           <SubjectSelect
-            value={classItem.subject[0] ?? ''}
+            value={subjects[0] ?? ''}
             onChange={onChangeFirstSubject}
             size="md"
             marginY="8px"
@@ -168,14 +144,14 @@ export const ClassItemEdit = ({
           {isDivide && (
             <>
               <SubjectSelect
-                value={classItem.subject[1] ?? ''}
+                value={subjects[1] ?? ''}
                 onChange={onChangeSecondSubject}
                 size="md"
                 marginY="8px"
                 border="1px solid #ccc"
               />
               <SubjectSelect
-                value={classItem.subject[2] ?? ''}
+                value={subjects[2] ?? ''}
                 onChange={onChangeThirdSubject}
                 size="md"
                 marginY="8px"
@@ -187,7 +163,7 @@ export const ClassItemEdit = ({
             isChecked={isDivide}
             onChange={(e) => {
               if (!e.target.checked) {
-                onUpdateSubject([classItem.subject[0]].filter(truthy))
+                setSubjects([subjects[0]].filter(truthy))
               }
               setIsDivide(e.target.checked)
             }}
@@ -196,23 +172,17 @@ export const ClassItemEdit = ({
           </Checkbox>
         </Box>
       )}
-      <InputGroup marginY="8px">
-        <Textarea
-          value={noteInput}
-          onChange={(e) => setNoteInput(e.target.value)}
-          height="80px"
-          borderRadius="0.375rem 0 0 0.375rem"
-        />
-        <InputRightAddon height="80px" padding="0">
-          <Button
-            onClick={onUpdateNote}
-            height="80px"
-            borderRadius="0 0.315rem 0.315rem 0"
-          >
-            反映
-          </Button>
-        </InputRightAddon>
-      </InputGroup>
+      <Textarea
+        value={noteInput}
+        onChange={(e) => setNoteInput(e.target.value)}
+        height="80px"
+        marginY="8px"
+        border="1px solid #ccc"
+        borderRadius="0.375rem"
+      />
+      <Button onClick={onUpdate} width="100%" colorScheme="blue">
+        反映
+      </Button>
     </Box>
   )
 }

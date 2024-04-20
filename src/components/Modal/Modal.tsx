@@ -5,6 +5,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalBody,
+  useModalContext,
 } from '@chakra-ui/react'
 import { cloneElement, type ReactElement } from 'react'
 
@@ -34,3 +35,5 @@ export const Modal = ({
     </>
   )
 }
+
+export { useModalContext }
