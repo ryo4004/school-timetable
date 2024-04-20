@@ -126,6 +126,7 @@ export const WeekTable = () => {
                           aria-label="closeIcon"
                           icon={<CloseIcon />}
                           background="white"
+                          border="0"
                           borderRadius="0"
                         />
                       }
