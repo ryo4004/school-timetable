@@ -113,7 +113,7 @@ export const WeekTable = () => {
                       >
                         <Text
                           padding="8px 16px"
-                          _hover={{ background: '#ccc' }}
+                          _hover={{ background: '#0000000a' }}
                         >
                           週案{index + 1}&nbsp;
                           {replaceToSlash(weekTimetable.firstDate)}

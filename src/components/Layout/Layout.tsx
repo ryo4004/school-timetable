@@ -41,12 +41,12 @@ const Header = () => {
           </Link>
           <Flex flex={2}>
             <Link to="/dashboard">
-              <Text paddingX="8px" _hover={{ background: '#ccc' }}>
+              <Text paddingX="8px" _hover={{ background: '#0000000a' }}>
                 ダッシュボード
               </Text>
             </Link>
             <Link to="/settings">
-              <Text paddingX="8px" _hover={{ background: '#ccc' }}>
+              <Text paddingX="8px" _hover={{ background: '#0000000a' }}>
                 設定
               </Text>
             </Link>
