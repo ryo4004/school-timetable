@@ -13,7 +13,15 @@ export const SubjectSelect = ({
   const { config } = useConfigStore()
 
   return (
-    <Select value={value} onChange={onChange} size="sm" padding="0" {...props}>
+    <Select
+      value={value}
+      onChange={onChange}
+      size="sm"
+      padding="0"
+      border="0"
+      icon={<></>}
+      {...props}
+    >
       <option value="">-</option>
       {config.subjects.map((subject) => (
         <option key={subject} value={subject}>

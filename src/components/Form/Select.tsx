@@ -4,7 +4,7 @@ import {
 } from '@chakra-ui/react'
 
 export const Select = (props: ChakraSelectProps) => {
-  return <ChakraSelect border="1px solid #ccc" icon={<></>} {...props} />
+  return <ChakraSelect border="1px solid #ccc" {...props} />
 }
 
 export type SelectProps = ChakraSelectProps
