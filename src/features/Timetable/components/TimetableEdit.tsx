@@ -312,7 +312,7 @@ const ClassItem = ({
         )}
         <Box
           width="100%"
-          height="50px"
+          minHeight="50px"
           border="1px solid #000"
           fontSize="12px"
           lineHeight="14px"

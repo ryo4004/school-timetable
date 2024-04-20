@@ -159,7 +159,7 @@ const ClassItem = ({
       )}
       <Box
         width="100%"
-        height="50px"
+        minHeight="50px"
         paddingX="2px"
         fontSize="12px"
         lineHeight="14px"
