@@ -19,6 +19,8 @@ import {
 } from '../../../components/Table/Table'
 import { Flex } from '../../../components/Layout/Flex'
 import { isClass } from '../../../utilities/isClass'
+import { Modal } from '../../../components/Modal/Modal'
+import { ClassItemEdit } from './ClassItemEdit'
 
 export const MainTimetable = () => {
   const { key } = useParams<{ key: string }>()
@@ -115,6 +117,7 @@ export const MainTimetable = () => {
                     return (
                       <ClassItem
                         key={dateTimetable.date}
+                        weekIndex={weekIndex}
                         dateTimetable={dateTimetable}
                         classConfig={classConfig}
                       />
@@ -132,41 +135,56 @@ export const MainTimetable = () => {
 }
 
 const ClassItem = ({
+  weekIndex,
   dateTimetable,
   classConfig,
 }: {
+  weekIndex: number
   dateTimetable: TimetableDate
   classConfig: ClassConfig
 }) => {
   const classItem = dateTimetable.classes[classConfig.id]
 
   return (
-    <Td>
-      {isClass(classConfig.type) && (
-        <Flex
-          width="100%"
-          justifyContent="space-around"
-          borderBottom="1px solid #000"
-          fontSize="14px"
-        >
-          {/* eslint-disable-next-line no-irregular-whitespace */}
-          {classItem.subject.length === 0 && <Text>　</Text>}
-          {classItem.subject.length !== 0 &&
-            classItem.subject.map((subject, index) => (
-              <Text key={index}>{subject}</Text>
-            ))}
-        </Flex>
-      )}
-      <Box
-        width="100%"
-        minHeight="50px"
-        paddingX="2px"
-        fontSize="12px"
-        lineHeight="14px"
-        whiteSpace="pre-wrap"
-      >
-        {classItem.note}
-      </Box>
+    <Td _hover={{ background: '#0000000a' }}>
+      <Modal
+        triggerElement={
+          <Box>
+            {isClass(classConfig.type) && (
+              <Flex
+                width="100%"
+                justifyContent="space-around"
+                borderBottom="1px solid #000"
+                fontSize="14px"
+              >
+                {/* eslint-disable-next-line no-irregular-whitespace */}
+                {classItem.subject.length === 0 && <Text>　</Text>}
+                {classItem.subject.length !== 0 &&
+                  classItem.subject.map((subject, index) => (
+                    <Text key={index}>{subject}</Text>
+                  ))}
+              </Flex>
+            )}
+            <Box
+              width="100%"
+              minHeight="50px"
+              paddingX="2px"
+              fontSize="12px"
+              lineHeight="14px"
+              whiteSpace="pre-wrap"
+            >
+              {classItem.note}
+            </Box>
+          </Box>
+        }
+        bodyElement={
+          <ClassItemEdit
+            weekIndex={weekIndex}
+            timetableDate={dateTimetable}
+            classConfig={classConfig}
+          />
+        }
+      />
     </Td>
   )
 }
