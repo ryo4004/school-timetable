@@ -1,10 +1,14 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTimetableStore } from '../../../stores/timetable'
 import { type SaveTimetable } from '../../../components/Layout/SaveButton'
 import { useConfigStore } from '../../../stores/configs'
 import { Input } from '../../../components/Form/Input'
+import { toast } from '../../../libraries/toast'
 
 export const LoadButton = () => {
+  const navigate = useNavigate()
+
   const [fileName, setFileName] = useState('')
   const { loadTimetable } = useTimetableStore()
   const { loadConfig } = useConfigStore()
@@ -33,6 +37,11 @@ export const LoadButton = () => {
                 if (isSaveTimetable(json) && json.version === '0.0.1') {
                   loadTimetable(json.timetables)
                   loadConfig(json.config)
+                  toast({
+                    status: 'success',
+                    title: '読み込みました',
+                  })
+                  navigate('/dashboard')
                 }
               } catch (error) {
                 console.log(error)
