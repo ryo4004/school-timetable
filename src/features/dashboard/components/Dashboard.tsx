@@ -111,13 +111,18 @@ export const WeekTable = () => {
                       <Link
                         to={`/${weekTimetable.firstDate.replace(/-/g, '')}`}
                       >
-                        <Text
-                          padding="8px 16px"
+                        <Flex
+                          alignItems="center"
                           _hover={{ background: '#0000000a' }}
+                          padding="8px 16px"
                         >
-                          週案{index + 1}&nbsp;
-                          {replaceToSlash(weekTimetable.firstDate)}
-                        </Text>
+                          <Text fontSize="14px">
+                            {replaceToSlash(weekTimetable.firstDate)}
+                          </Text>
+                          <Text marginLeft="8px" fontWeight="bold">
+                            週案（{index + 1}週）
+                          </Text>
+                        </Flex>
                       </Link>
                     </Box>
                     <Dialog
