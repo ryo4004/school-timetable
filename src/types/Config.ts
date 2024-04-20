@@ -14,12 +14,10 @@ export const CLASS_TYPES: Record<
   other: 'その他',
 } as const
 
-type ClassType = keyof typeof CLASS_TYPES
-
 export type ClassConfig = {
   id: string
   name: string
-  type: ClassType
+  type: ClassTypeKeys
 }
 
 export type DateSchedule = Record<TimetableKey, string>

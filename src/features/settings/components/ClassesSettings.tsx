@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useConfigStore } from '../../../stores/configs'
 import { getUniqueId } from '../../../utilities/getUniqueId'
-import { CLASS_TYPES, CLASS_TYPE_ORDER } from '../../../types'
+import { CLASS_TYPES, CLASS_TYPE_ORDER, ClassTypeKeys } from '../../../types'
 import { replaceElements } from '../../../utilities/replaceElements'
 import { Input } from '../../../components/Form/Input'
 import { Text } from '../../../components/Layout/Text'
@@ -18,7 +18,7 @@ import { Box } from '../../../components/Layout/Box'
 
 export const ClassesSettings = () => {
   const [classesInput, setClassesInput] = useState('')
-  const [classType, setClassType] = useState('class')
+  const [classType, setClassType] = useState<ClassTypeKeys>('class')
 
   const { config, updateClasses } = useConfigStore()
 
@@ -31,7 +31,7 @@ export const ClassesSettings = () => {
         <InputLeftAddon padding="0">
           <Select
             value={classType}
-            onChange={(e) => setClassType(e.target.value)}
+            onChange={(e) => setClassType(e.target.value as ClassTypeKeys)}
             border="0"
             borderRadius="0.375rem 0 0 0.375rem"
           >
@@ -52,7 +52,7 @@ export const ClassesSettings = () => {
             onClick={() => {
               updateClasses([
                 ...config.classes,
-                { id: getUniqueId(), name: classesInput, type: 'other' },
+                { id: getUniqueId(), name: classesInput, type: classType },
               ])
               setClassesInput('')
             }}
