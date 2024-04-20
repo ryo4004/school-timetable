@@ -79,9 +79,7 @@ export const MainTimetable = () => {
                 return (
                   <Th key={timetable.date} textAlign="center">
                     <Text fontSize="16px" padding="8px">
-                      <a href={`#${dateTime.toFormat('M/d')}`}>
-                        {dateTime.toFormat('M/d')}({getWeekDay(dateTime)})
-                      </a>
+                      {dateTime.toFormat('M/d')}({getWeekDay(dateTime)})
                     </Text>
                   </Th>
                 )

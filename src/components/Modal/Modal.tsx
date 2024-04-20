@@ -28,7 +28,7 @@ export const Modal = ({
       <ChakraModal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalBody>{bodyElement}</ModalBody>
+          <ModalBody padding="0">{bodyElement}</ModalBody>
         </ModalContent>
       </ChakraModal>
     </>

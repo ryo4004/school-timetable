@@ -109,13 +109,7 @@ export const ClassItemEdit = ({
   }
 
   return (
-    <Box
-      margin="8px"
-      padding="8px"
-      border="1px solid #ccc"
-      borderRadius="0.375rem"
-      boxShadow="base"
-    >
+    <Box padding="8px">
       <Box paddingY="8px">
         <Tag
           variant="outline"
