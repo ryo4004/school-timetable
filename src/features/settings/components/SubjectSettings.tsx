@@ -5,9 +5,11 @@ import { Text } from '../../../components/Layout/Text'
 import { Box } from '../../../components/Layout/Box'
 import { InputGroup } from '../../../components/Form/InputGroup'
 import { InputRightAddon } from '../../../components/Form/InputRightAddon'
-import { Button } from '../../../components/Form/Button'
+import { Button, IconButton } from '../../../components/Form/Button'
 import { Tag, TagCloseButton } from '../../../components/Form/Tag'
 import { Flex } from '../../../components/Layout/Flex'
+import { replaceElements } from '../../../utilities/replaceElements'
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
 export const SubjectSettings = () => {
   const [subjectInput, setSubjectInput] = useState('')
@@ -41,8 +43,39 @@ export const SubjectSettings = () => {
           </Button>
         </InputRightAddon>
       </InputGroup>
-      {config.subjects.map((subject) => (
+      {config.subjects.map((subject, index) => (
         <Flex key={subject} alignItems="center" marginY="8px">
+          <IconButton
+            onClick={() => {
+              const newSubjects = replaceElements(
+                config.subjects,
+                index - 1,
+                index,
+              )
+              updateSubjects(newSubjects)
+            }}
+            variant="outline"
+            size="sm"
+            aria-label="ChevronUpIcon"
+            icon={<ChevronUpIcon />}
+            isDisabled={index === 0}
+          />
+          <IconButton
+            onClick={() => {
+              const newSubjects = replaceElements(
+                config.subjects,
+                index + 1,
+                index,
+              )
+              updateSubjects(newSubjects)
+            }}
+            marginX="8px"
+            variant="outline"
+            size="sm"
+            aria-label="ChevronDownIcon"
+            icon={<ChevronDownIcon />}
+            isDisabled={index === config.subjects.length - 1}
+          />
           <Tag borderRadius="full" colorScheme="blue" size="lg">
             {subject}
             <TagCloseButton
