@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTimetableStore } from '../../../stores/timetable'
-import { LoadButton } from './LoadButton'
+import { LoadButton } from '../../Home/components/LoadButton'
 import { Link } from 'react-router-dom'
 import { useConfigStore } from '../../../stores/configs'
 import { isMonday } from '../../../utilities/getWeekDay'

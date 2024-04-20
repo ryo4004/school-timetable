@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Box } from '../../components/Layout/Box'
 import { Text } from '../../components/Layout/Text'
-import { LoadButton } from '../dashboard/components/LoadButton'
+import { LoadButton } from './components/LoadButton'
 import {
   ListItem,
   OrderedList,
