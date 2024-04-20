@@ -21,6 +21,7 @@ import { Box } from '../../../components/Layout/Box'
 import { Flex } from '../../../components/Layout/Flex'
 import { CloseIcon } from '@chakra-ui/icons'
 import { Dialog } from '../../../components/Dialog/Dialog'
+import { toast } from '../../../libraries/toast'
 
 export const CreateTimeTable = () => {
   const [startDate, setStartDate] = useState('')
@@ -32,7 +33,10 @@ export const CreateTimeTable = () => {
       return
     }
     if (timetables.find((timetable) => timetable.firstDate === startDate)) {
-      return alert('すでに存在します')
+      return toast({
+        status: 'error',
+        title: 'すでに存在します',
+      })
     }
     createTimetable(startDate, config.classes, config.schedule)
   }
