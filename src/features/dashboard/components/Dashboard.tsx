@@ -129,7 +129,7 @@ export const WeekTable = () => {
                           borderRadius="0"
                         />
                       }
-                      bodyText="削除しますか？"
+                      bodyText={`週案${index + 1}を削除しますか？`}
                       confirmButtonLabel="削除"
                       confirm={onClickRemoveTimetable(weekTimetable.firstDate)}
                     />
